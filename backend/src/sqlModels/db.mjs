@@ -53,10 +53,6 @@ db.run (`
              nombre_cliente VARCHAR(30) NOT NULL,
              primer_apellido VARCHAR(30) NOT NULL,
              segundo_apellido VARCHAR(30) NOT NULL,
-             correo_electronico VARCHAR(30) NOT NULL,
-             codigo_postal INTEGER (10) NOT NULL,
-             pais VARCHAR (20) NOT NULL,
-             telefono_movil INTEGER(20) NOT NULL,
              metodo_pago 
              
              
@@ -70,8 +66,8 @@ db.run (`
  db.run (`
     CREATE TABLE
         IF NOT EXISTS
-        carrito(
-            id_compra INTEGER PRIMARY KEY,
+        pedido(
+            id_pedido INTEGER PRIMARY KEY,
             id_item INTEGER (8) NOT NULL,
             cantidad INTEGER(10) NOT NULL
             
@@ -85,7 +81,7 @@ db.run (`
     CREATE TABLE
          IF NOT EXISTS
          factura(
-             id_compra INTEGER PRIMARY KEY,
+             id_pedido INTEGER PRIMARY KEY,
              documento_identificacion INTEGER(8) NOT NULL,
              id_factura INTEGER (8) NOT NULL,
              fecha_factura DATE
