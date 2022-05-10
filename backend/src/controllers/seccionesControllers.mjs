@@ -1,5 +1,22 @@
 import db from "../sqlModels/db.mjs";
-import { deleteSeccionesSQL, getAllSeccionesSQL,postSeccionesSQL,putSeccionesSQL } from "../sqlModels/seccionesModels.mjs";
+import { deleteSeccionesSQL, getAllSeccionesSQL,postSeccionesSQL,putSeccionesSQL,getOneSeccionesIdSQL } from "../sqlModels/seccionesModels.mjs";
+
+
+export function getOneSeccionesControllers (request, response) {
+    try {
+        db.get(
+            getOneSeccionesIdSQL,
+            request.params.id_seccion,
+            (err, data) => {
+                if ( err ) throw err
+                else if ( data ) response.json(data)
+                else response.sendStatus(404)
+            }
+        )
+    } catch (err) {
+        requestError(err, response)
+    }
+}
 
 
 //Mostrar secciones
@@ -21,10 +38,9 @@ export function getAllSeccionesControllers(request, response){
   
   //Añadir tareas
     export function postSeccionesControllers (request, response){
-      const { id_seccion, name_seccion, } = request.body;
-      db.run( postSeccionesSQL,
+          db.run( postSeccionesSQL,
          
-          [id_seccion, name_seccion],
+          [request.body.id_seccion, request.body.nombre_seccion,request.body.id_producto],
           (err) => {
               if (err) {
                   console.error(err);
@@ -38,6 +54,7 @@ export function getAllSeccionesControllers(request, response){
   // Funcion Modificar tarea
     export function putSeccionesControllers(request, response){
       db.run(putSeccionesSQL,
+        [request.body.nombre_seccion,request.body.id_seccion],
        
         (err) => {
             if (err) {
@@ -50,8 +67,9 @@ export function getAllSeccionesControllers(request, response){
     )
   }
   // Funcion Eliminar tarea
-     export function deleteProductosControllers (request, response){
+     export function deleteSeccionesControllers (request, response){
       db.run(deleteSeccionesSQL,
+      request.body.id_seccion,
         
         (err) => {
             if (err) {

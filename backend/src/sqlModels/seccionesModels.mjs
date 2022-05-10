@@ -1,9 +1,11 @@
 export const secciones = [];
 
-export const getAllSeccionesSQL = `SELECT id_seccion, name_seccion,id_producto FROM secciones`;
+export const getOneSeccionesIdSQL = `SELECT nombre_seccion,id_producto FROM secciones WHERE id_seccion=?`;
 
-export const postSeccionesSQL =  `INSERT INTO secciones(id_seccion, name_seccion) VALUES (?, ?)`;
+export const getAllSeccionesSQL = `SELECT id_seccion, nombre_seccion,id_producto FROM secciones`;
 
-export const putSeccionesSQL =  `UPDATE secciones SET name_seccion = "${request.body.name_seccion}"  WHERE id_seccion = "${request.body.id_seccion}"`;
+export const postSeccionesSQL =  `INSERT INTO secciones(id_seccion, nombre_seccion,id_producto) VALUES (?,?,?)`;
 
-export const deleteSeccionesSQL = `DELETE FROM productos WHERE id_producto =`+request.body.id_producto;
+export const putSeccionesSQL =  `UPDATE secciones SET nombre_seccion = ? WHERE id_seccion = ?`;
+
+export const deleteSeccionesSQL = `DELETE FROM secciones WHERE id_seccion = ?`;
