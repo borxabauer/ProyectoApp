@@ -1,5 +1,5 @@
 import db from "../sqlModels/db.mjs";
-import { deleteSeccionesSQL, getAllSeccionesSQL,postSeccionesSQL,putSeccionesSQL,getOneSeccionesIdSQL } from "../sqlModels/seccionesModels.mjs";
+import { deleteSeccionesSQL, getAllSeccionesSQL,postSeccionesSQL,putSeccionesSQL,getOneSeccionesIdSQL,getSeccionForAProductoIdSQL } from "../sqlModels/seccionesModels.mjs";
 
 
 export function getOneSeccionesControllers (request, response) {
@@ -17,6 +17,27 @@ export function getOneSeccionesControllers (request, response) {
         requestError(err, response)
     }
 }
+
+// Controlador que la seccion con el producto
+
+export function getSeccionForAProductoIdControllers (request,response){
+    try{
+        console.log('request.params',request.params)
+        db.get(
+            getSeccionForAProductoIdSQL,
+            request.params.id_producto,
+            (err,data)=>{
+                if (err) throw err
+                else if (data) response.json(data)
+                else response.sendStatus(404)
+
+                 }
+              )
+    }  catch (err) {
+        requestError(err, response)
+    }
+}
+
 
 
 //Mostrar secciones

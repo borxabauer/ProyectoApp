@@ -23,8 +23,7 @@ db.run (`
         secciones(
             id_seccion INTEGER PRIMARY KEY ,
             nombre_seccion TEXT NOT NULL,
-            id_producto INTEGER 
-
+            id_producto INTEGER
          )
 
 `);

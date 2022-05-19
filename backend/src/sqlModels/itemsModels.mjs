@@ -1,6 +1,6 @@
 export const items = [];
 
-export const getOneItemsByIdSQL = `SELECT id_seccion,descripcion,precio,nombre_item,imagen FROM tasks WHERE id_item = ?`;
+export const getOneItemsByIdSQL = `SELECT id_seccion,descripcion,precio,nombre_item,imagen FROM items WHERE id_item = ?`;
 
 export const getAllItemsSQL = `SELECT id_item,id_seccion,descripcion,precio,nombre_item,imagen FROM items`;
 

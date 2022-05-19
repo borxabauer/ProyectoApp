@@ -1,6 +1,10 @@
+
+
 export const secciones = [];
 
-export const getOneSeccionesIdSQL = `SELECT nombre_seccion,id_producto FROM secciones WHERE id_seccion=?`;
+export const getOneSeccionesIdSQL = `SELECT id_seccion,nombre_seccion,id_producto FROM secciones WHERE id_seccion=?`;
+
+export const getSeccionForAProductoIdSQL =`SELECT id_seccion, nombre_seccion,id_producto FROM secciones WHERE id_producto = ?`;
 
 export const getAllSeccionesSQL = `SELECT id_seccion, nombre_seccion,id_producto FROM secciones`;
 
