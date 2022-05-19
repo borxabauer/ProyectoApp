@@ -1,4 +1,4 @@
-body {
+/*body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -11,25 +11,83 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+*/
+*{
+  margin:0;
+  padding:0;
+  
+}
 
-header{ 
+.container{
+  width:100%;
+  height:10vh;
+  background-image: linear-gradient(rgb(160, 26, 33) (5 10,5,0.80),rgba(184, 24, 64, 0.8));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background:rgb(5, 5, 5);
+  
+}
+
+.navabar{
+  width:80%;
+  margin:auto;
+  padding:35px 0;
   display: flex;
-  flex-direction:row;
-  align-content: center;
+  align-items: center;
   justify-content: space-between;
-  padding: 16px;
-  background: rgb(0, 217, 255);
+  
+  
+  
+}
+
+.logo{
+  width:130px;
+  cursor:pointer;
+}
+
+.navbar ul li{
+  list-style-type:none;
+  display:inline-block;
+  margin: 0 20px;
+  position: relative;
+}
+
+.navbar ul li a{
+  text-decoration: none;
+  color: white;
+  font-family:Roboto,"sons-serif";
+  font-size: 1.2rem;
+}
+
+/* Efecto animado de la linea*/
+
+.navabar ul li a::before{
+  content:"";
+  height:3px;
+  width:0%;
+  background: yellowgreen;
+  position:absolute;
+  left:0;
+  bottom:-12px;
+  transition: 0.4s ease-out;
 
 }
 
-nav ul {
-  list-style: none;
+.navabar ul li a:hover::before{
+  width:100%;
+
 }
+  
+
 
 footer{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 16px;
-  background: rgb(146, 104, 104);
+  background:black;
+  width: 100%;
+  height:170px;
+  bottom:50px;
+  position:fixed;
+  text-align: center;
+  color:rgb(161, 37, 37);
 }
+
