@@ -23,7 +23,7 @@ export function getOneSeccionesControllers (request, response) {
 export function getSeccionForAProductoIdControllers (request,response){
     try{
         console.log('request.params',request.params)
-        db.get(
+        db.all(
             getSeccionForAProductoIdSQL,
             request.params.id_producto,
             (err,data)=>{

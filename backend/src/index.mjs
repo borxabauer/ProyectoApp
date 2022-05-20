@@ -5,7 +5,8 @@ import { getAllProductosControllers,postProductosControllers,putProductosControl
 import { getAllItemsControllers,postItemsControllers,putItemsControllers,deleteItemsControllers,getOneItemsControllers } from "./controllers/itemsControllers.mjs";
 import { getAllSeccionesControllers, postSeccionesControllers,getOneSeccionesControllers,putSeccionesControllers,deleteSeccionesControllers,getSeccionForAProductoIdControllers} from "./controllers/seccionesControllers.mjs"
 import { deletePedidosControllers, getAllPedidosControllers, getOnePedidosControllers, postPedidosControllers, putPedidosControllers } from "./controllers/pedidoControllers.mjs";
-
+import { validateDeleteProductoJSON, validateNewProductoJSON, validateProductoJSON } from "./middleware/jsonValidatorProductos.mjs";
+import { validateDeleteSeccionJSON, validateNewSeccionJSON, validateSeccionJSON } from "./middleware/jsonValidatorSecciones.mjs";
 const app = express();
 const PORT = 3000;
 
@@ -26,9 +27,9 @@ try {
      // Productos
  app.get("/api/v0.0/productos/:id_producto",jsonParser,getOneProductosControllers);
  app.get("/api/v0.0/productos/",jsonParser,getAllProductosControllers);
- app.post("/api/v0.0/productos/",jsonParser,postProductosControllers);
- app.put("/api/v0.0/productos/",jsonParser,putProductosControllers);
- app.delete("/api/v0.0/productos/",jsonParser,deleteProductosControllers);
+ app.post("/api/v0.0/productos/",jsonParser,validateNewProductoJSON,postProductosControllers);
+ app.put("/api/v0.0/productos/",jsonParser,validateProductoJSON,putProductosControllers);
+ app.delete("/api/v0.0/productos/",jsonParser,validateDeleteProductoJSON,deleteProductosControllers);
 
     // Items
  app.get("/api/v0.0/items/:id_item",jsonParser,getOneItemsControllers);
@@ -41,9 +42,9 @@ try {
  app.get("/api/v0.0/secciones/:id_seccion",jsonParser,getOneSeccionesControllers);
  app.get("/api/v0.0/productos/:id_producto/secciones",jsonParser,getSeccionForAProductoIdControllers);
  app.get("/api/v0.0/secciones/",jsonParser,getAllSeccionesControllers);
- app.post("/api/v0.0/secciones/",jsonParser,postSeccionesControllers);
- app.put("/api/v0.0/secciones/",jsonParser,putSeccionesControllers);
- app.delete("/api/v0.0/secciones/",jsonParser,deleteSeccionesControllers);
+ app.post("/api/v0.0/secciones/",jsonParser,validateNewSeccionJSON,postSeccionesControllers);
+ app.put("/api/v0.0/secciones/",jsonParser,validateSeccionJSON,putSeccionesControllers);
+ app.delete("/api/v0.0/secciones/",jsonParser,validateDeleteSeccionJSON,deleteSeccionesControllers);
 
  // Pedidos
 
