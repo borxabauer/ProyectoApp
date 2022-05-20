@@ -28,7 +28,7 @@ const NavBar = ()=> {
             <img src= "logo.jpg" className="logo" alt="Main Logo"/>
                 <ul>
                     <li><Link to="/">Home</Link></li>
-                    {productos.map(item=><li><Link to={"/secciones/"+item.id_producto}>{item.nombre_producto}</Link></li>)}    
+                    {productos.map(item=><li><Link to={"/productos/"+item.id_producto}>{item.nombre_producto}</Link></li>)}    
                 </ul>  
             </div>
          

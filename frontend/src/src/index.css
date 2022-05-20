@@ -47,7 +47,7 @@ code {
 }
 
 .navbar ul li{
-  list-style-type:none;
+  list-style-type: none;
   display:inline-block;
   margin: 0 20px;
   position: relative;
@@ -62,7 +62,7 @@ code {
 
 /* Efecto animado de la linea*/
 
-.navabar ul li a::before{
+.navabar ul li::before{
   content:"";
   height:3px;
   width:0%;
@@ -74,20 +74,56 @@ code {
 
 }
 
-.navabar ul li a:hover::before{
+.navabar ul li:hover::before{
   width:100%;
 
 }
   
 
 
-footer{
+.footer li{
   background:black;
   width: 100%;
-  height:170px;
-  bottom:50px;
+  height:15vh;
+  bottom:20px;
   position:fixed;
   text-align: center;
-  color:rgb(161, 37, 37);
+  
+} 
+.footer li a {
+  color:white;
+  list-style-type: none;
+  display: center; 
+  position: relative;
+  text-decoration: none;
+  font-family: Roboto,"sons-serif";
+  font-size:1.2rem;
 }
 
+/* Efecto Animado linea */
+.footer li a::before{
+  content:"";
+  height:3px;
+  width:0%;
+  left:0%;
+  background: yellowgreen;
+  position:absolute;
+  bottom:-12px;
+  transition: 0.4s ease-out;
+
+}
+
+.footer li a:hover::before{
+  width:100%;
+  
+
+}
+
+.secciones{
+  display:center;
+  text-align: left;
+}
+
+.secciones li a {
+  color:black;
+}
