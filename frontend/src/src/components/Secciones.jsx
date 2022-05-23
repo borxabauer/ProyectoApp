@@ -11,22 +11,19 @@ function Secciones () {
 
     const [seccion, setSeccion] = useState(null)
     const [ seccionList , setSeccionList ] = useState(null)
-    const [items, setItems] = useState([])
+    
 
     async function fetchSeccion () {
         const response = await fetch(backendURL+'productos/'+params.id_producto+'/secciones');
         const data = await response.json()
         setSeccion(data)
         const seccionesHTML = data.map(
-            sec => <li key= {sec.nombre_seccion}><Link to= {`/secciones/${sec.nombre_seccion}`}>{sec.nombre_seccion}</Link></li>
+            sec => <li key= {sec.nombre_seccion}><Link to= {`/secciones/${sec.id_seccion}`}>{sec.nombre_seccion}</Link></li>
         )
         setSeccionList(seccionesHTML)
     }
 
-    async function fetchItems () {
-        const responseItems = await fetch(backendURL+`items/`+seccion[0]);
-         setItems(await responseItems.json())
-    }
+
 
     useEffect(
         ()=>{
@@ -35,13 +32,7 @@ function Secciones () {
         [params]
     )
 
-    useEffect(
-        ()=>{
-            console.log(seccion);
-            fetchItems()
-        },
-        [seccion]
-    )
+  
 
     return (
         <>

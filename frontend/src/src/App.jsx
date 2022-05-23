@@ -3,8 +3,8 @@ import './App.css';
 import {Route,Routes,} from 'react-router-dom';
 import NavBar from './components/Navbar';
 import Footer from './components/Footer';
-
 import Secciones from "./components/Secciones"
+import Items from './components/Items';
 
 const Home =()=> <h1>Home</h1>;
 
@@ -19,6 +19,7 @@ function App() {
         <Route index element={<Home />}/>   
 
         <Route path='/productos/:id_producto' element={<Secciones/>}/>
+        <Route path='/secciones/:id_seccion'  element={<Items/>}/>
 
         <Route path="*" element={<h1>404</h1>}/>
        

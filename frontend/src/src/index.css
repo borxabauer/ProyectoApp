@@ -94,30 +94,34 @@ code {
   color:white;
   list-style-type: none;
   display: center; 
-  position: relative;
   text-decoration: none;
   font-family: Roboto,"sons-serif";
   font-size:1.2rem;
-}
-
-/* Efecto Animado linea */
-.footer li a::before{
-  content:"";
-  height:3px;
-  width:0%;
-  left:0%;
-  background: yellowgreen;
-  position:absolute;
-  bottom:-12px;
-  transition: 0.4s ease-out;
-
-}
-
-.footer li a:hover::before{
-  width:100%;
   
-
 }
+
+
+ /*Efecto Animado linea */
+
+.footer li a::after {
+  content: "";
+  display:block;
+  height: 3px;
+  background-color:yellowgreen;
+  transform: scale(0,1);
+  transform-origin: center;
+  transition: transform 0.4s;
+  
+}
+
+.footer li a:hover::after {
+  transform: scale(1,1);
+  
+}
+ 
+  
+ 
+
 
 .secciones{
   display:center;
