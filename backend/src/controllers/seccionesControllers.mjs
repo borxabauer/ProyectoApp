@@ -18,7 +18,7 @@ export function getOneSeccionesControllers (request, response) {
     }
 }
 
-// Controlador que la seccion con el producto
+// Controlador conseguir la seccion con el id del  producto
 
 export function getSeccionForAProductoIdControllers (request,response){
     try{

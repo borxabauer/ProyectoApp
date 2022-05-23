@@ -1,10 +1,10 @@
 
 import db from "../sqlModels/db.mjs";
-import { getAllItemsSQL,postItemsSQL,putItemsSQL,deleteItemsSQL,getOneItemsByIdSQL } from "../sqlModels/itemsModels.mjs";
+import { getAllItemsSQL,postItemsSQL,putItemsSQL,deleteItemsSQL,getOneItemsByIdSQL,getItemForASeccionIdSQL } from "../sqlModels/itemsModels.mjs";
 
 
 
-
+// Mostra un item por id
 
 export function getOneItemsControllers (request, response) {
     try {
@@ -22,11 +22,32 @@ export function getOneItemsControllers (request, response) {
     }
 }
 
+// Mostrar un item por el id de la seccion
+
+export function getItemForASeccionIdControllers (request,response){
+    try{
+        console.log('request.params',request.params)
+        db.all(
+            getItemForASeccionIdSQL,
+            request.params.id_seccion,
+            (err,data)=>{
+                if (err) throw err
+                else if (data) response.json(data)
+                else response.sendStatus(404)
+
+                 }
+              )
+    }  catch (err) {
+        requestError(err, response)
+    }
+
+    }
 
 
 
 
- // Mostrar items
+
+ // Mostrar todos items
 export function getAllItemsControllers(request, response){
     db.all (getAllItemsSQL,
     (err, data) => {
