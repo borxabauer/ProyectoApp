@@ -16,7 +16,9 @@ export const newSeccionSchema = {
         nombre_seccion: {
             description: "Seccion description",
             type: "string"
-        },
+     },
+
+       
         id_producto:{
             description: "Seccion unique identificator",
             type: "integer",

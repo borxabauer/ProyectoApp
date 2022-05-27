@@ -35,7 +35,7 @@ export function validateSeccionJSON ( request, response, next) {
     }
 }
 
-//Validacion Eliminar Productos
+//Validacion Eliminar Seccion
 
 export function validateDeleteSeccionJSON ( request, response, next) {
     try {

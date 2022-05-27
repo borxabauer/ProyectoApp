@@ -7,16 +7,44 @@ import { getAllSeccionesControllers, postSeccionesControllers,getOneSeccionesCon
 import { deletePedidosControllers, getAllPedidosControllers, getOnePedidosControllers, postPedidosControllers, putPedidosControllers } from "./controllers/pedidoControllers.mjs";
 import { validateDeleteProductoJSON, validateNewProductoJSON, validateProductoJSON } from "./middleware/jsonValidatorProductos.mjs";
 import { validateDeleteSeccionJSON, validateNewSeccionJSON, validateSeccionJSON } from "./middleware/jsonValidatorSecciones.mjs";
+import multer from "multer";
+
 const app = express();
 const PORT = 3000;
+//Multer Subir Archivos
 
+const UPLOADS_FOLDER= "./uploads/"
 
+const upload=multer({dest: UPLOADS_FOLDER})
 
 app.use(express.json());
 
 try {
     const jsonParser = express.json();
-    app.use(requestLog);
+   //app.use(requestLog);
+ 
+     // Imagenes Multer
+    
+ app.post("/api/v0.0/uploadOnePhoto/",upload.single('photo'),(req,res)=>{
+
+    console.log("Files:",req.files.length)
+    console.log("Body:",req.body)
+
+    res.sendStatus(201)
+ })
+ 
+ app.post('api/v0.0/uploadManyPhotos/',upload.array('fotos', 10),(req, res)=>{
+    console.log("Files:", req.files.length)
+    console.log("Body:", req.body)
+    res.sendStatus(201)
+})
+ 
+
+ app.use("/api/v0.0/public/",express.static(UPLOADS_FOLDER))
+
+ 
+    
+     
 
      // Usuario
  app.get("/api/v0.0/users/",jsonParser,getUserController);
@@ -67,6 +95,7 @@ try {
     console.error(err);
 }
  
+
     
 
 
