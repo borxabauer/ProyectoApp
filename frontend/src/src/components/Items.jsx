@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 
 
-function Items () {
+
+const Items =() => {
     const params= useParams()
     console.log('params:',params,params.id_seccion)
     const backendURL = "http://localhost:3000/api/v0.0/"
@@ -16,7 +17,7 @@ function Items () {
         const data = await response.json()
         setItems(data)
         const itemsHTML=data.map(
-            sec=> <li key= {sec.nombre_item}><Link to ={`/items/${sec.nombre_item}`}>{sec.image} {sec.nombre_item} {sec.precio}</Link></li>
+            sec=> <li key= {sec.nombre_item}><Link to ={`/items/${sec.id_item}`}>{sec.image} {sec.nombre_item} {sec.precio}</Link></li>
         )
         setListItems(itemsHTML)
     }
@@ -35,6 +36,8 @@ function Items () {
         <div className= "items">
             <h1> Items </h1>
             {listItems}
+            
+            
 
 
         </div>        
@@ -46,21 +49,6 @@ function Items () {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

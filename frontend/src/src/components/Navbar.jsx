@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-
+import logo from "../images/logo.jpg";
 const NavBar = ()=> {
 
     const backendURL = "http://localhost:3000/api/v0.0/"
@@ -21,11 +21,15 @@ const NavBar = ()=> {
     )
 
     return(
-    <div class ="container">
-            
-        
-            <div class ="navbar">
-            <img src= "logo.jpg" className="logo" alt="Main Logo"/>
+
+    <div className ="container">
+                 
+            <div className ="navbar">
+                <div>
+                <Link to="./">
+                <img src={logo} className="logo" alt="Main Logo"/>
+                </Link>
+                </div>
                 <ul>
                     <li><Link to="/">Home</Link></li>
                     {productos.map(item=><li><Link to={"/productos/"+item.id_producto}>{item.nombre_producto}</Link></li>)}    

@@ -3,7 +3,7 @@ import {useState, useEffect} from "react"
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 
-function Secciones () {
+const Secciones =()=> {
 
     const params = useParams()
     console.log('los params :', params, params.id_producto)
@@ -32,16 +32,29 @@ function Secciones () {
         [params]
     )
 
+    
+     
+
+
   
 
     return (
         <>
+        
         < div className = "secciones">
             <h1>Secciones</h1>
             {seccionList}
+        
          </div>
+
+
         </>
     )
 }
 
 export default Secciones
+
+/*
+            {params.id_seccion !== 0 && params.id_items === 0 && <Items/> }
+            {params.id_seccion !== 0 && params.id_items !== 0 && <Item/>}
+ */
