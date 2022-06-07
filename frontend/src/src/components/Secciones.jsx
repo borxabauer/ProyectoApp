@@ -14,7 +14,7 @@ const Secciones =()=> {
     
 
     async function fetchSeccion () {
-        const response = await fetch(backendURL+'productos/'+params.id_producto+'/secciones');
+        const response =await fetch(backendURL+'productos/'+params.id_producto+'/secciones');
         const data = await response.json()
         setSeccion(data)
         const seccionesHTML = data.map(

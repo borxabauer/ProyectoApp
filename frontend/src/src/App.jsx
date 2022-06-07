@@ -7,6 +7,9 @@ import Items from './components/Items'
 import Item from './components/Item';
 import background from './images/fondo-pantalla.jpg'
 import Formulario from './components/Formulario';
+import Carousel from './components/Carousel';
+
+
 
 
  const Home=()=> <h1>Home</h1>;
@@ -37,7 +40,7 @@ function App() {
       
        <img src={background} className="background" alt="Background"/>
 
-       
+      
 
 
       

@@ -25,11 +25,11 @@ const NavBar = ()=> {
     <div className ="container">
                  
             <div className ="navbar">
-                <div>
+                
                 <Link to="./">
                 <img src={logo} className="logo" alt="Main Logo"/>
                 </Link>
-                </div>
+                
                 <ul>
                     <li><Link to="/">Home</Link></li>
                     {productos.map(item=><li><Link to={"/productos/"+item.id_producto}>{item.nombre_producto}</Link></li>)}    
