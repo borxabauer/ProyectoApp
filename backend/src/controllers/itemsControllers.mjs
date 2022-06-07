@@ -23,6 +23,7 @@ export function getOneItemsControllers (request, response) {
 }
 
 // Mostrar un item por el id de la seccion
+// data.imagen= la direccion del use expres.static en index mjs
 
 export function getItemForASeccionIdControllers (request,response){
     try{
@@ -32,7 +33,10 @@ export function getItemForASeccionIdControllers (request,response){
             request.params.id_seccion,
             (err,data)=>{
                 if (err) throw err
-                else if (data) response.json(data)
+                else if (data) {
+                    data.imagen = "http://localhost:3000/api/v0.0/public/"+data.imagen
+                    response.json(data)
+                }
                 else response.sendStatus(404)
 
                  }
@@ -67,7 +71,7 @@ export function getAllItemsControllers(request, response){
       
       db.run(postItemsSQL,
          
-          [request.body.id_item,request.body.id_seccion,request.body.descripcion,request.body.precio,request.body.nombre_item,request.body.imagen],
+          [request.body.id_item,request.body.id_seccion,request.body.descripcion,request.body.precio,request.body.nombre_item,request.file.filename],
           (err) => {
               if (err) {
                   console.error(err);

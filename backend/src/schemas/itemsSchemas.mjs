@@ -43,7 +43,7 @@ export const newItemsSchema = {
 
 // Schema Modificar Items
 
-export const ItemsSchema = {
+export const itemsSchema = {
     $id_item: "/items",
     type: "object",
     properties: {

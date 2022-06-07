@@ -7,11 +7,13 @@ import { getAllSeccionesControllers, postSeccionesControllers,getOneSeccionesCon
 import { deletePedidosControllers, getAllPedidosControllers, getOnePedidosControllers, postPedidosControllers, putPedidosControllers } from "./controllers/pedidoControllers.mjs";
 import { validateDeleteProductoJSON, validateNewProductoJSON, validateProductoJSON } from "./middleware/jsonValidatorProductos.mjs";
 import { validateDeleteSeccionJSON, validateNewSeccionJSON, validateSeccionJSON } from "./middleware/jsonValidatorSecciones.mjs";
+import { validateDeleteItemJSON, validateItemsJSON, validateNewItemsJSON } from "./middleware/jsonValidatorItems.mjs";
 import multer from "multer";
+
 
 const app = express();
 const PORT = 3000;
-//Multer Subir Archivos
+//Multer Subir Archivos Carpeta
 
 const UPLOADS_FOLDER= "./uploads/"
 
@@ -24,20 +26,16 @@ try {
    //app.use(requestLog);
  
      // Imagenes Multer
-    
+    /*
  app.post("/api/v0.0/uploadOnePhoto/",upload.single('photo'),(req,res)=>{
 
-    console.log("Files:",req.files.length)
+    console.log("File:",req.file)
     console.log("Body:",req.body)
 
     res.sendStatus(201)
  })
- 
- app.post('api/v0.0/uploadManyPhotos/',upload.array('fotos', 10),(req, res)=>{
-    console.log("Files:", req.files.length)
-    console.log("Body:", req.body)
-    res.sendStatus(201)
-})
+ */
+
  
 
  app.use("/api/v0.0/public/",express.static(UPLOADS_FOLDER))
@@ -63,9 +61,9 @@ try {
  app.get("/api/v0.0/items/:id_item",jsonParser,getOneItemsControllers);
  app.get("/api/v0.0/secciones/:id_seccion/items",jsonParser,getItemForASeccionIdControllers)
  app.get("/api/v0.0/items/",jsonParser,getAllItemsControllers);
- app.post("/api/v0.0/items/",jsonParser,postItemsControllers);
- app.put("/api/v0.0/items/",jsonParser,putItemsControllers);
- app.delete("/api/v0.0/items/",jsonParser,deleteItemsControllers);
+ app.post("/api/v0.0/items/",upload.single('photo'),postItemsControllers);
+ app.put("/api/v0.0/items/",jsonParser,validateItemsJSON,putItemsControllers);
+ app.delete("/api/v0.0/items/",jsonParser,validateDeleteItemJSON,deleteItemsControllers);
 
    // Secciones
  app.get("/api/v0.0/secciones/:id_seccion",jsonParser,getOneSeccionesControllers);
