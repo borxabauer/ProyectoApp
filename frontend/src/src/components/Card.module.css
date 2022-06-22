@@ -1,0 +1,37 @@
+
+.card {
+    box-shadow: 0.4px 8px 8px 4.4px rgba(218, 13, 13, 0.644);
+    max-width: 300px;
+    max-height:300px;
+    margin:auto;
+    text-align: center;
+    font-family: arial;
+    margin:20px
+   
+}
+
+.nombreItem{
+    color:red;
+    font-size: 8px;
+}
+.precio{
+    color:black;
+    font-size: 16px;
+}
+
+.imagen {
+    height: 200px;
+    width: 200px;
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 12px;
+  }

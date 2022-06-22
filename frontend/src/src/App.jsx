@@ -4,15 +4,14 @@ import NavBar from './components/Navbar';
 import Footer from './components/Footer';
 import Secciones from "./components/Secciones"
 import Items from './components/Items'
-import Item from './components/Item';
 import background from './images/fondo-pantalla.jpg'
-import Formulario from './components/Formulario';
-import Carousel from './components/Carousel';
+import Home from './views/Home';
+import styles from "./styles/Main.module.css"
 
 
 
 
- const Home=()=> <h1>Home</h1>;
+
 
 
 function App() {
@@ -21,32 +20,32 @@ function App() {
 
      <NavBar/>
 
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route index element={<Home/>}/>  
-        
-       
-
-          <Route path='/productos/:id_producto' element={<Secciones/>}/>
-          <Route path='/secciones/:id_seccion'  element={<Items/>}/>
-          <Route path='/items/:id_item'          element={<Item/>}/>
-
-        <Route path="*" element={<h1>404</h1>}/>
-       
-        
-      </Routes>
-      < Formulario/>
+      
       <main>
-      
-       <img src={background} className="background" alt="Background"/>
+      <div className={styles.backgroundwrapper}>
+        <img src={background} className={styles.background} alt="Background"/>
+        <div className={styles.contentwrapper}>
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route index element={<Home/>}/>  
+            
+          
 
-      
+              <Route path='/productos/:id_producto' element={<Secciones/>}/>
+              <Route path='/secciones/:id_seccion'  element={<Items/>}/>
+            
+
+            <Route path="*" element={<h1>404</h1>}/>
+          
+            
+          </Routes>
+        </div>
+      </div>
 
 
-      
-      
       </main>
       
+
       <Footer/>
        
       </div>

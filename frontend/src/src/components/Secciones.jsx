@@ -2,12 +2,14 @@
 import {useState, useEffect} from "react"
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
+import styles from './Secciones.module.css'
+import { backendURL } from "../config.js"
 
 const Secciones =()=> {
 
     const params = useParams()
     console.log('los params :', params, params.id_producto)
-    const backendURL = "http://localhost:3000/api/v0.0/"
+  //  const backendURL = "http://localhost:3000/api/v0.0/"
 
     const [seccion, setSeccion] = useState(null)
     const [ seccionList , setSeccionList ] = useState(null)
@@ -41,7 +43,7 @@ const Secciones =()=> {
     return (
         <>
         
-        < div className = "secciones">
+        < div className = {styles.secciones}>
             <h1>Secciones</h1>
             {seccionList}
         

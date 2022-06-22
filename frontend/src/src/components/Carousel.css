@@ -1,0 +1,7 @@
+.carouselslide {
+position: relative;
+left: 250px;
+top: 50px;
+width: 450px;
+display: flex;
+}

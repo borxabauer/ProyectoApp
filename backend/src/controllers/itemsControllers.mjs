@@ -23,7 +23,7 @@ export function getOneItemsControllers (request, response) {
 }
 
 // Mostrar un item por el id de la seccion
-// data.imagen= la direccion del use expres.static en index mjs
+// data.imagen= la direccion del use expres. static en index mjs
 
 export function getItemForASeccionIdControllers (request,response){
     try{

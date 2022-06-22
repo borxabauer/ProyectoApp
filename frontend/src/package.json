@@ -16,7 +16,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "comment": "#Personaliza la variable de entorno de la siguiente linea.",
+    "build": "PUBLIC_URL ='./' react-scripts build",
+    "windows-build": "set PUBLIC_URL=./&& react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

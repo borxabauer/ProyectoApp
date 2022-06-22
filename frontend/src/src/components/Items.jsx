@@ -1,14 +1,14 @@
 import { useState,useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { Link } from "react-router-dom"
 import CardItem from "./CardItem"
-
+import styles from "./Items.module.css"
+import { backendURL } from "../config.js"
 
 
 const Items =() => {
     const params= useParams()
     console.log('params:',params,params.id_seccion)
-    const backendURL = "http://localhost:3000/api/v0.0/"
+  // const backendURL = "http://localhost:3000/api/v0.0/"
 
     const[items,setItems]= useState([])
     const[listItems,setListItems]= useState([])
@@ -41,8 +41,8 @@ const Items =() => {
 
     return(
         <>
-        <div className= "items">
-            <h1> Items </h1>
+        <h1> Items </h1>
+        <div className= {styles.items + " " + styles.container }>
             {listItems}
             
             

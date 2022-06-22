@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+.items {
+    display: center;
+    text-align:center;
+    margin-top: 20px;
+  }
+    
+  
+  
+  .items li a {
+    color:black;
+    
+  }

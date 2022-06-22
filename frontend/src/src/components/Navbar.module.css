@@ -1,0 +1,71 @@
+
+.container{
+    width:100%;
+    height:15vh;
+    background-color:rgb(5, 5, 5);
+    display: flex;
+    
+    
+    
+    
+  }
+  
+  .navbar{
+    width:100%;
+    margin:auto;
+    padding:35px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    
+    
+  }
+  
+  .logo{
+    width:100px;
+    cursor:pointer;
+    
+}
+  
+  .navabar ul{
+    text-align: center;
+    align-items: center;
+
+  }
+  
+  .navbar ul li{
+    list-style-type: none;
+    display:inline-block;
+    margin: 0 20px;
+   
+    
+  }
+  
+  .navbar ul li a{
+    text-decoration: none;
+    color: white;
+    font-family:Roboto,"sons-serif";
+    font-size: 1.2rem;
+  }
+  
+  /* Efecto animado de la linea
+  
+  .navabar ul li::before{
+    content:"";
+    height:3px;
+    width:0%;
+    background: yellowgreen;
+    position:absolute;
+    left:0;
+    bottom:-12px;
+    transition: 0.4s ease-out;
+  
+  }
+  
+  .navabar ul li:hover::before{
+    width:100%;
+  
+  }
+
+  */

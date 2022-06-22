@@ -1,0 +1,24 @@
+.backgroundwrapper {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  height: 70vh;
+  width: 100vw;
+}
+
+.contentwrapper {
+  position: absolute;
+  top: 0px;
+  z-index: 1
+}
+
+.background {
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0.9;
+}
+
+
+
+
+  

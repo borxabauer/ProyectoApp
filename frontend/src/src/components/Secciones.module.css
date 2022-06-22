@@ -1,0 +1,15 @@
+.secciones{
+    display:center;
+    text-align: left;
+    text-decoration: none;
+    border-style: 2px solid;
+    /*width:20%;*/
+    background-color: rgba(146, 18, 18, 0.4);
+  
+  }
+  
+  .secciones li a {
+    color:black;
+    
+  }
+   

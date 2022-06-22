@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import logo from "../images/logo.jpg";
+import styles from "./Navbar.module.css"
+import { backendURL } from "../config.js";
+
 const NavBar = ()=> {
 
-    const backendURL = "http://localhost:3000/api/v0.0/"
+   // const backendURL = "http://localhost:3000/api/v0.0/"
 
     const [productos, setProductos] = useState([])
 
@@ -22,12 +25,12 @@ const NavBar = ()=> {
 
     return(
 
-    <div className ="container">
+    <div className ={styles.container}>
                  
-            <div className ="navbar">
+            <div className ={styles.navbar}>
                 
                 <Link to="./">
-                <img src={logo} className="logo" alt="Main Logo"/>
+                <img src={logo} className={styles.logo} alt="Main Logo"/>
                 </Link>
                 
                 <ul>

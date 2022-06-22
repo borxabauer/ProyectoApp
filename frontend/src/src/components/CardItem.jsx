@@ -1,4 +1,4 @@
-import '../styles/card.css'
+import styles from './Card.module.css'
 
 function CardItem (props) {
 
@@ -7,19 +7,21 @@ const{ item } = props;
 
    return (
     //<Link to= {`/items/${item.id_item}`}> {item.nombre_item} {item.image} {item.precio} {item.descripcion}>
-       <div className= "containerCard" >
+       <div className= {styles.card} >
 
-            <div className= "nombreItem">
+            <img src= {"http://localhost:3000/api/v0.0/public/"+item.imagen} className={styles.imagen}  alt="photos"   />
+
+            <div className= {styles.nombreItem}>
                 <h2 > {item.nombre_item} </h2>
             </div>  
-                <img src= {"http://localhost:3000/api/v0.0/public/"+item.imagen}  alt="photos"   className="imagenItem"/>
+                
 
-                 <h3 className="precio"> {item.precio} </h3>
+          <h3 className={styles.precio}> {item.precio} </h3>
 
-            <div className="descripcion">
+            <div className={styles.descripcion}>
                  <p > {item.descripcion} </p>
             </div>
-                 <button> Añadir Carrito</button>
+                 <button className={styles.button}>Add to Card</button>
 
        </div>
     //</Link>

@@ -1,21 +1,22 @@
+import styles from './Footer.module.css'
 
 const Footer =()=>{
 
     return(
 
- < div className= "footer">
+ < div className= {styles.footer}>
     <li>
             <a href="about.html">  
-               <p>Sobre Nosotros</p>
+               Sobre Nosotros
              </a>
             <a href="contacto.html">
-               <p>Contacto</p>
+               Contacto
         </a>
             <a href="localizacion.html">
-               <p>Localizacion</p>
+               Localizacion
         </a>
             <a href="cookies.html">
-               <p>Cookies</p>
+               Cookies
         </a>
     </li>
  </div>
