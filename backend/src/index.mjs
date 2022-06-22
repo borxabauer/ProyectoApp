@@ -16,7 +16,11 @@ import {config} from "dotenv"
 
 
 const app = express();
+<<<<<<< HEAD
 const PORT = 3000;
+=======
+//const PORT = 3000;
+>>>>>>> devel
 
 //DESPLIEGUE
 
