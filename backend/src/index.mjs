@@ -8,11 +8,25 @@ import { deletePedidosControllers, getAllPedidosControllers, getOnePedidosContro
 import { validateDeleteProductoJSON, validateNewProductoJSON, validateProductoJSON } from "./middleware/jsonValidatorProductos.mjs";
 import { validateDeleteSeccionJSON, validateNewSeccionJSON, validateSeccionJSON } from "./middleware/jsonValidatorSecciones.mjs";
 import { validateDeleteItemJSON, validateItemsJSON, validateNewItemsJSON } from "./middleware/jsonValidatorItems.mjs";
+import { decodeBasicToken,authMiddleware } from "./middleware/authorization.mjs";
 import multer from "multer";
+import jwt from "jsonwebtoken"
+import { users } from "./sqlModels/usersModels.mjs";
+import {config} from "dotenv"
 
 
 const app = express();
-const PORT = 3000;
+//const PORT = 3000;
+
+//DESPLIEGUE
+
+if ( process.env.NODE_ENV != "production" ) {
+    config()
+}
+app.use("/",express.static("../frontend/src/build/", {index: "index.html"}))
+
+
+
 //Multer Subir Archivos Carpeta
 
 const UPLOADS_FOLDER= "./uploads/"
@@ -23,41 +37,65 @@ app.use(express.json());
 
 try {
     const jsonParser = express.json();
-   //app.use(requestLog);
+  
+  
+    //app.use(requestLog);
  
      // Imagenes Multer
-    /*
- app.post("/api/v0.0/uploadOnePhoto/",upload.single('photo'),(req,res)=>{
-
-    console.log("File:",req.file)
-    console.log("Body:",req.body)
-
-    res.sendStatus(201)
- })
- */
-
  
 
  app.use("/api/v0.0/public/",express.static(UPLOADS_FOLDER))
 
  
     
+     // Autentificacion
+        
+     const secret = "abc123.secreto.serio" // Esto debería de estar en un .env
+
      
 
-     // Usuario
+     app.get("/api/v0.0/login/", (req, res)=>{
+        const [ username, password ] = decodeBasicToken(req)
+        if ( 
+            username === users.username && password === users.password
+        ) {
+            const token = jwt.sign(
+                {
+                    level: users.accessLevel
+                },
+                secret,
+                {
+                    expiresIn: "1h",
+                }
+            )
+            res.send(token)
+        } else {
+            res.sendStatus(401)
+        }
+    })
+
+    app.get("/api/v0.0/secretos/", authMiddleware, (req, res)=>{
+        res.send(`autorizado`)
+    })
+
+
  app.get("/api/v0.0/users/",jsonParser,getUserController);
  app.post("/api/v0.0/users/",jsonParser,postUserController);
  app.put("/api/v0.0/users/",jsonParser,putUserController);
  app.delete("/api/v0.0/users/",jsonParser, deleteUserController);
 
-     // Productos
+
+ // Productos
+
  app.get("/api/v0.0/productos/:id_producto",jsonParser,getOneProductosControllers);
  app.get("/api/v0.0/productos/",jsonParser,getAllProductosControllers);
  app.post("/api/v0.0/productos/",jsonParser,validateNewProductoJSON,postProductosControllers);
  app.put("/api/v0.0/productos/",jsonParser,validateProductoJSON,putProductosControllers);
  app.delete("/api/v0.0/productos/",jsonParser,validateDeleteProductoJSON,deleteProductosControllers);
 
-    // Items
+  
+ // Items
+
  app.get("/api/v0.0/items/:id_item",jsonParser,getOneItemsControllers);
  app.get("/api/v0.0/secciones/:id_seccion/items",jsonParser,getItemForASeccionIdControllers)
  app.get("/api/v0.0/items/",jsonParser,getAllItemsControllers);
@@ -65,7 +103,9 @@ try {
  app.put("/api/v0.0/items/",jsonParser,validateItemsJSON,putItemsControllers);
  app.delete("/api/v0.0/items/",jsonParser,validateDeleteItemJSON,deleteItemsControllers);
 
-   // Secciones
+ 
+ // Secciones
+
  app.get("/api/v0.0/secciones/:id_seccion",jsonParser,getOneSeccionesControllers);
  app.get("/api/v0.0/productos/:id_producto/secciones",jsonParser,getSeccionForAProductoIdControllers);
  app.get("/api/v0.0/secciones/",jsonParser,getAllSeccionesControllers);
@@ -73,6 +113,7 @@ try {
  app.put("/api/v0.0/secciones/",jsonParser,validateSeccionJSON,putSeccionesControllers);
  app.delete("/api/v0.0/secciones/",jsonParser,validateDeleteSeccionJSON,deleteSeccionesControllers);
 
+ 
  // Pedidos
 
  app.get("/api/v0.0/pedidos/:id_pedido",jsonParser,getOnePedidosControllers);
@@ -85,7 +126,7 @@ try {
  
  
 
- app.listen(PORT,()=>{
+ app.listen(process.env.PORT,()=>{
     console.log("Express running...");
 })
 
