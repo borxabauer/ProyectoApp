@@ -1,13 +1,11 @@
-import Carousel from "../components/Carousel"
+import Carousel from "../components/Carousel";
 
-function Home () {
-    return (
+function Home() {
+  return (
     <>
-        <h1>Home</h1>
- 
-       <Carousel/>
+      <Carousel />
     </>
- )
+  );
 }
 
-export default Home
+export default Home;
