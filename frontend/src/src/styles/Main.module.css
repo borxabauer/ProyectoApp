@@ -9,7 +9,9 @@
 .contentwrapper {
   position: absolute;
   top: 0px;
-  z-index: 1
+  left: 0px;
+  z-index: 1;
+  width: 100%;
 }
 
 .background {

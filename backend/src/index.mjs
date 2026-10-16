@@ -25,6 +25,27 @@ if ( process.env.NODE_ENV != "production" ) {
 }
 app.use("/",express.static("../frontend/src/build/", {index: "index.html"}))
 
+const developmentOrigins = new Set([
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
+])
+
+app.use((req, res, next) => {
+    const origin = req.get("Origin")
+
+    if (origin && developmentOrigins.has(origin)) {
+        res.setHeader("Access-Control-Allow-Origin", origin)
+        res.setHeader("Vary", "Origin")
+        res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization")
+    }
+
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(origin && developmentOrigins.has(origin) ? 204 : 403)
+    }
+
+    next()
+})
 
 
 //Multer Subir Archivos Carpeta
@@ -136,7 +157,6 @@ try {
  
 
     
-
 
 
 
