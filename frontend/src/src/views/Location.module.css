@@ -1,0 +1,67 @@
+.location {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.8fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.96);
+  text-align: left;
+}
+
+.details {
+  align-self: center;
+  padding: 8px;
+}
+
+.eyebrow {
+  margin-bottom: 8px;
+  color: #55751d;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.details h1 {
+  margin-bottom: 16px;
+  padding: 10px;
+  color: white;
+}
+
+.address {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.directions {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: #151515;
+  color: white;
+  text-decoration: none;
+}
+
+.directions:hover,
+.directions:focus-visible {
+  background: #55751d;
+  color: white;
+}
+
+.map {
+  width: 100%;
+  min-height: 380px;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+  .location {
+    grid-template-columns: 1fr;
+    margin: 16px;
+    padding: 16px;
+  }
+
+  .map {
+    min-height: 320px;
+  }
+}

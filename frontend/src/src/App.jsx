@@ -6,7 +6,10 @@ import Secciones from "./components/Secciones"
 import Items from './components/Items'
 import background from './images/fondo-pantalla.jpg'
 import Home from './views/Home';
+import Cart from './views/Cart';
+import Location from './views/Location';
 import styles from "./styles/Main.module.css"
+import { CartProvider } from "./context/CartContext";
 
 
 
@@ -16,6 +19,7 @@ import styles from "./styles/Main.module.css"
 
 function App() {
   return (
+    <CartProvider>
     <div className="App">
 
      <NavBar/>
@@ -28,6 +32,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route index element={<Home/>}/>  
+            <Route path='/carrito' element={<Cart/>}/>
+            <Route path='/localizacion' element={<Location/>}/>
             
           
 
@@ -49,6 +55,7 @@ function App() {
       <Footer/>
        
       </div>
+    </CartProvider>
     
   );
 }
@@ -61,8 +68,6 @@ export default App;
 
 
 /*<Route path='/productos/:id_producto/:id_seccion/:id_item' element={<Secciones/>}/>*/
-
-
 
 
 

@@ -1,4 +1,5 @@
 import styles from './Footer.module.css'
+import { Link } from "react-router-dom";
 
 const Footer =()=>{
 
@@ -12,9 +13,9 @@ const Footer =()=>{
             <a href="contacto.html">
                Contacto
         </a>
-            <a href="localizacion.html">
+            <Link to="/localizacion">
                Localizacion
-        </a>
+            </Link>
             <a href="cookies.html">
                Cookies
         </a>

@@ -50,6 +50,35 @@
     display: inline-block;
   }
 
+  .cartLink {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px;
+  }
+
+  .cartIcon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .cartCount {
+    position: absolute;
+    top: -5px;
+    right: -7px;
+    display: grid;
+    min-width: 19px;
+    height: 19px;
+    padding: 0 4px;
+    place-items: center;
+    border-radius: 999px;
+    background-color: yellowgreen;
+    color: #111;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
   .navbar ul li a::after {
     content: "";
     display: block;

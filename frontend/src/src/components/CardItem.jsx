@@ -1,8 +1,10 @@
 import styles from './Card.module.css'
+import { useCart } from "../context/CartContext";
 
 function CardItem (props) {
 
 const{ item } = props;
+const { addToCart } = useCart();
 
 
    return (
@@ -21,7 +23,13 @@ const{ item } = props;
             <div className={styles.descripcion}>
                  <p > {item.descripcion} </p>
             </div>
-                 <button className={styles.button}>Add to Card</button>
+                 <button
+                    className={styles.button}
+                    type="button"
+                    onClick={() => addToCart(item)}
+                 >
+                    Añadir al carrito
+                 </button>
 
        </div>
     //</Link>
