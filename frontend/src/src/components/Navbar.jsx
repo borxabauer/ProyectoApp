@@ -29,7 +29,7 @@ const NavBar = () => {
             <Link to="/"></Link>
           </li>
           {productos.map((item) => (
-            <li>
+            <li key={item.id_producto}>
               <Link to={"/productos/" + item.id_producto}>
                 {item.nombre_producto}
               </Link>
