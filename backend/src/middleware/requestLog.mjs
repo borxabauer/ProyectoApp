@@ -3,6 +3,7 @@ import { items } from "../sqlModels/itemsModels.mjs";
 import { productos } from "../sqlModels/productosModels.mjs";
 import { secciones } from "../sqlModels/seccionesModels.mjs";
 
+// Middleware de depuración: registra la petición y datos en memoria; no usar en producción porque podrían incluir información sensible.
 export function requestLog ( request, response, next ) {
     next();
     const { url, method, body } = request

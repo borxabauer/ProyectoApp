@@ -2,8 +2,7 @@
 import { validate } from "jsonschema";
 import { newProductoSchema, productoSchema, deleteProductoSchema} from "../schemas/productosSchemas.mjs";
 
-// Validacion Añadir Productos
-
+// Rechaza productos nuevos con datos inválidos antes de acceder a la base de datos.
 export function validateNewProductoJSON ( request, response, next) {
     try {
         const validation = validate(request.body, newProductoSchema)
@@ -17,8 +16,7 @@ export function validateNewProductoJSON ( request, response, next) {
     }
 }
 
-// Validacion Añadir Productos
-
+// Comprueba los campos requeridos para actualizar un producto.
 export function validateProductoJSON ( request, response, next) {
     try {
         const validation = validate(request.body,productoSchema)
@@ -32,8 +30,7 @@ export function validateProductoJSON ( request, response, next) {
     }
 }
 
-//Validacion Eliminar Productos
-
+// Comprueba que la petición de borrado incluya un id de producto válido.
 export function validateDeleteProductoJSON ( request, response, next) {
     try {
         const validation = validate(request.body,deleteProductoSchema)

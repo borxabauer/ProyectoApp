@@ -3,6 +3,7 @@ import dormitorio2 from '../images/dormitorio2.jpg'
 import mueble from '../images/mueble1.jpg'
 import './Carousel.css'
 
+   // Presenta las imágenes destacadas en un carrusel que Bootstrap puede controlar.
    function Carousel () {
     
     return (
@@ -43,7 +44,6 @@ import './Carousel.css'
     
     
   
-
 
 
 

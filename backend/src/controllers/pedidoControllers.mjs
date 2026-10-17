@@ -1,8 +1,6 @@
 import db from "../sqlModels/db.mjs";
 import { getOnePedidosSQL,getAllPedidosSQL,postPedidosSQL,putPedidosSQL,deletePedidosSQL } from "../sqlModels/pedidoModels.mjs";
-
-
-
+// Busca un pedido por id y devuelve 404 si no está registrado.
 export function getOnePedidosControllers (request,response){
     db.get(getOnePedidosSQL, request.params.id_pedido, (err, data) => {
         if (err) {
@@ -14,8 +12,7 @@ export function getOnePedidosControllers (request,response){
 }
 
         
-  // Mostrar pedido
-
+// Devuelve todos los pedidos guardados en la base de datos.
    export function getAllPedidosControllers(request, response){
     db.all (getAllPedidosSQL,
     (err, data) => {
@@ -30,7 +27,7 @@ export function getOnePedidosControllers (request,response){
   }
      
   
-  //Añadir tareas
+  // Registra un pedido con el artículo y la cantidad recibidos.
     export function postPedidosControllers (request, response){
       
       db.run(postPedidosSQL,
@@ -46,7 +43,7 @@ export function getOnePedidosControllers (request,response){
           }
       )
   }
-  //  Modificar tarea
+  // Cambia la cantidad de artículos de un pedido existente.
     export function putPedidosControllers(request, response){
       db.run(putPedidosSQL,
         [request.body.cantidad,request.body.id_pedido],
@@ -60,7 +57,7 @@ export function getOnePedidosControllers (request,response){
         }
     )
   }
-  //  Eliminar tarea
+  // Elimina el pedido indicado por su id.
      export function deletePedidosControllers (request, response){
       db.run(deletePedidosSQL,
         request.body.id_pedido,

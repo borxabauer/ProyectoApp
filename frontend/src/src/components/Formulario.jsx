@@ -1,4 +1,6 @@
+// Formulario de ejemplo para cargar un artículo con su imagen.
 const Formulario = () => {
+  // Envía los campos y el archivo como multipart/form-data al endpoint de artículos.
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);

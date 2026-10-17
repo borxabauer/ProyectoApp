@@ -1,8 +1,7 @@
 import { validate } from "jsonschema";
 import { seccionSchema,newSeccionSchema, deleteSeccionSchema } from "../schemas/seccionesSchemas.mjs";
 
- // Validacion Añadir Seccion
-
+// Valida los datos de una sección nueva antes de guardarla.
 export function validateNewSeccionJSON ( request, response, next) {
     try {
         const validation = validate(request.body,newSeccionSchema)
@@ -16,8 +15,7 @@ export function validateNewSeccionJSON ( request, response, next) {
     }
 }
 
-// Validacion Añadir Seccion
-
+// Valida los campos editables al actualizar una sección.
 export function validateSeccionJSON ( request, response, next) {
     try {
         const validation = validate(request.body,seccionSchema)
@@ -31,8 +29,7 @@ export function validateSeccionJSON ( request, response, next) {
     }
 }
 
-//Validacion Eliminar Seccion
-
+// Comprueba que el id recibido para borrar una sección sea válido.
 export function validateDeleteSeccionJSON ( request, response, next) {
     try {
         const validation = validate(request.body,deleteSeccionSchema)

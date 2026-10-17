@@ -1,10 +1,12 @@
 
 import { users } from "../sqlModels/usersModels.mjs";
 
+// Devuelve las cuentas sin incluir sus contraseñas.
 export function getUserController (request, response) {
     response.json(users.map(({ id, username, accessLevel }) => ({ id, username, accessLevel })));
 }
 
+// Añade una cuenta en memoria después de comprobar sus datos y evitar duplicados.
 export function postUserController (request, response) {
     const { username, password, accessLevel = 0 } = request.body;
     if (typeof username !== "string" || !username.trim() || typeof password !== "string" || !password) {
@@ -19,6 +21,7 @@ export function postUserController (request, response) {
     return response.sendStatus(201);
 }
 
+// Actualiza los datos de una cuenta existente.
 export function putUserController (request, response) {
     const { id, username, password, accessLevel } = request.body;
     const user = users.find((item) => item.id === id);
@@ -36,6 +39,7 @@ export function putUserController (request, response) {
     return response.sendStatus(200);
 }
 
+// Elimina de memoria la cuenta identificada por el id recibido.
 export function deleteUserController (request, response) {
     const index = users.findIndex((user) => user.id === request.body.id);
     if (index === -1) {

@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const databasePath = process.env.DATABASE_PATH || path.join(directory, '..', 'Muebles.db');
 
+// Abre la base de datos persistente; DATABASE_PATH permite usar otra ubicación en pruebas.
 export const db = new sqlite3.Database(databasePath, (err) => {
     if (err) {
         throw err.message;

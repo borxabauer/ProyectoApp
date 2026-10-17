@@ -4,8 +4,7 @@ import { getAllItemsSQL,postItemsSQL,putItemsSQL,deleteItemsSQL,getOneItemsByIdS
 
 
 
-// Mostra un item por id
-
+// Busca un artículo por id; responde 404 cuando no hay coincidencias.
 export function getOneItemsControllers (request, response) {
     db.get(getOneItemsByIdSQL, request.params.id_item, (err, data) => {
         if (err) {
@@ -16,6 +15,7 @@ export function getOneItemsControllers (request, response) {
     });
 }
 
+// Lista los artículos que pertenecen a la sección solicitada.
 export function getItemForASeccionIdControllers (request,response){
     db.all(getItemForASeccionIdSQL, request.params.id_seccion, (err, data) => {
         if (err) {
@@ -30,7 +30,7 @@ export function getItemForASeccionIdControllers (request,response){
 
 
 
- // Mostrar todos items
+// Devuelve el catálogo completo de artículos.
 export function getAllItemsControllers(request, response){
     db.all (getAllItemsSQL,
     (err, data) => {
@@ -45,7 +45,7 @@ export function getAllItemsControllers(request, response){
   }
      
   
-  //Añadir items
+  // Guarda el artículo y la imagen que Multer almacenó durante la petición.
     export function postItemsControllers (request, response){
         db.run(postItemsSQL,
          
@@ -60,7 +60,7 @@ export function getAllItemsControllers(request, response){
           }
       )
   }
-  //  Modificar items
+  // Actualiza los datos de un artículo existente.
     export function putItemsControllers(request, response){
       db.run(putItemsSQL,
         [request.body.nombre_item,request.body.descripcion,request.body.precio,request.body.imagen,request.body.id_seccion, request.body.id_item],
@@ -74,7 +74,7 @@ export function getAllItemsControllers(request, response){
         }
     )
   }
-  //  Eliminar items
+  // Elimina el artículo indicado por su id.
      export function deleteItemsControllers (request, response){
       db.run(deleteItemsSQL,
         request.body.id_item,

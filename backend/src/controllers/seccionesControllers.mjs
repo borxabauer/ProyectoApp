@@ -1,7 +1,7 @@
 import db from "../sqlModels/db.mjs";
 import { deleteSeccionesSQL, getAllSeccionesSQL,postSeccionesSQL,putSeccionesSQL,getOneSeccionesIdSQL,getSeccionForAProductoIdSQL } from "../sqlModels/seccionesModels.mjs";
 
-
+// Busca una sección por su id.
 export function getOneSeccionesControllers (request, response) {
     db.get(getOneSeccionesIdSQL, request.params.id_seccion, (err, data) => {
         if (err) {
@@ -12,8 +12,7 @@ export function getOneSeccionesControllers (request, response) {
     });
 }
 
-// Controlador conseguir la seccion con el id del  producto
-
+// Lista las secciones asociadas al producto indicado.
 export function getSeccionForAProductoIdControllers (request,response){
     db.all(getSeccionForAProductoIdSQL, request.params.id_producto, (err, data) => {
         if (err) {
@@ -26,8 +25,7 @@ export function getSeccionForAProductoIdControllers (request,response){
 
 
 
-//Mostrar secciones
-
+// Devuelve todas las secciones disponibles.
 export function getAllSeccionesControllers(request, response){
     db.all ( getAllSeccionesSQL,
     
@@ -43,7 +41,7 @@ export function getAllSeccionesControllers(request, response){
   }
      
   
-  //Añadir tareas
+  // Crea una sección y la vincula con el producto recibido.
     export function postSeccionesControllers (request, response){
           db.run( postSeccionesSQL,
          
@@ -58,7 +56,7 @@ export function getAllSeccionesControllers(request, response){
           }
       )
   }
-  // Funcion Modificar tarea
+  // Actualiza el nombre de una sección existente.
     export function putSeccionesControllers(request, response){
       db.run(putSeccionesSQL,
         [request.body.nombre_seccion,request.body.id_seccion],
@@ -73,7 +71,7 @@ export function getAllSeccionesControllers(request, response){
         }
     )
   }
-  // Funcion Eliminar tarea
+  // Elimina la sección identificada en la petición.
      export function deleteSeccionesControllers (request, response){
       db.run(deleteSeccionesSQL,
       request.body.id_seccion,

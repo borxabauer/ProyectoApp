@@ -17,6 +17,7 @@ import { CartProvider } from "./context/CartContext";
 
 
 
+// Define el marco común de la tienda y las rutas de sus páginas.
 function App() {
   return (
     <CartProvider>
@@ -68,7 +69,6 @@ export default App;
 
 
 /*<Route path='/productos/:id_producto/:id_seccion/:id_item' element={<Secciones/>}/>*/
-
 
 
 

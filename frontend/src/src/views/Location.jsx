@@ -3,6 +3,7 @@ import styles from "./Location.module.css";
 const address = "Calle Falperra, 6, 4.º D, A Coruña, España";
 const encodedAddress = encodeURIComponent(address);
 
+// Presenta la dirección del establecimiento y enlaces a Google Maps.
 const Location = () => (
   <section className={styles.location}>
     <div className={styles.details}>

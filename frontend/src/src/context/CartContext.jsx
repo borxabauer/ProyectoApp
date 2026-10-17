@@ -3,6 +3,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 const CART_STORAGE_KEY = "muebles-cart";
 const CartContext = createContext(null);
 
+// Recupera el carrito del navegador y descarta entradas dañadas o incompletas.
 function loadCart() {
   try {
     const storedCart = window.localStorage.getItem(CART_STORAGE_KEY);
@@ -35,6 +36,7 @@ function loadCart() {
   }
 }
 
+// Comparte el estado y las operaciones del carrito y lo persiste en localStorage.
 export function CartProvider({ children }) {
   const [cart, setCart] = useState(loadCart);
 
@@ -46,6 +48,7 @@ export function CartProvider({ children }) {
     }
   }, [cart]);
 
+  // Añade un producto o aumenta en uno la cantidad si ya estaba en el carrito.
   const addToCart = useCallback((product) => {
     const productId = product.id_item ?? product.id;
     setCart((currentCart) => {
@@ -61,6 +64,7 @@ export function CartProvider({ children }) {
     });
   }, []);
 
+  // Actualiza la cantidad solo si es un entero positivo.
   const updateQuantity = useCallback((productId, quantity) => {
     const parsedQuantity = Number(quantity);
     if (!Number.isInteger(parsedQuantity) || parsedQuantity < 1) {
@@ -73,6 +77,7 @@ export function CartProvider({ children }) {
     );
   }, []);
 
+  // Quita del carrito todas las unidades del producto indicado.
   const removeFromCart = useCallback((productId) => {
     setCart((currentCart) =>
       currentCart.filter((item) => item.id_item !== productId),
@@ -87,6 +92,7 @@ export function CartProvider({ children }) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
+// Permite acceder al carrito desde componentes descendientes de CartProvider.
 export function useCart() {
   const context = useContext(CartContext);
   if (!context) {

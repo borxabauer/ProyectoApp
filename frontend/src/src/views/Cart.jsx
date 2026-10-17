@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import styles from "./Cart.module.css";
 
+// Presenta un importe como moneda en el formato habitual de España.
 function formatPrice(price) {
   return Number(price).toLocaleString("es-ES", {
     style: "currency",
@@ -9,6 +10,7 @@ function formatPrice(price) {
   });
 }
 
+// Muestra los artículos del carrito, su subtotal y el total de la compra.
 const Cart = () => {
   const { cart, updateQuantity, removeFromCart } = useCart();
   const total = cart.reduce(

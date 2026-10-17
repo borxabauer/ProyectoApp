@@ -2,6 +2,7 @@ import styles from './Card.module.css'
 import { useCart } from "../context/CartContext";
 import { backendURL } from "../config.js";
 
+// Muestra un artículo del catálogo y permite añadirlo al carrito.
 function CardItem (props) {
 
 const{ item } = props;

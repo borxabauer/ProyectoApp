@@ -1,9 +1,6 @@
 import { validate } from "jsonschema";
 import { newItemsSchema,itemsSchema,deleteItemSchema } from "../schemas/itemsSchemas.mjs";
-
-
-// Validacion Añadir Items
-
+// Normaliza los campos multipart y valida el artículo nuevo y su imagen.
 export function validateNewItemsJSON ( request, response, next) {
     try {
         if (!request.file) {
@@ -24,8 +21,7 @@ export function validateNewItemsJSON ( request, response, next) {
     }
 }
 
-// Validacion Añadir Item
-
+// Comprueba los datos enviados para actualizar un artículo.
 export function validateItemsJSON ( request, response, next) {
     try {
         const validation = validate(request.body,itemsSchema)
@@ -39,8 +35,7 @@ export function validateItemsJSON ( request, response, next) {
     }
 }
 
-//Validacion Eliminar Item
-
+// Impide eliminar un artículo si el id recibido no es válido.
 export function validateDeleteItemJSON ( request, response, next) {
     try {
         const validation = validate(request.body,deleteItemSchema)

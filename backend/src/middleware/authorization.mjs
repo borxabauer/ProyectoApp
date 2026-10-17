@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+// Decodifica las credenciales Basic enviadas al iniciar sesión.
 export function decodeBasicToken(request) {
     const authorization = request.headers.authorization;
     if (!authorization) {
@@ -19,10 +20,12 @@ export function decodeBasicToken(request) {
     return [credentials.slice(0, separator), credentials.slice(separator + 1)];
 }
 
+// Crea un token temporal para enviar en las siguientes peticiones protegidas.
 export function createAccessToken(level) {
     return jwt.sign({ level }, process.env.JWT_SECRET, { expiresIn: "1h" });
 }
 
+// Comprueba el token Bearer y deja disponible el nivel de acceso en la respuesta.
 export function authMiddleware(req, res, next) {
     try {
         const authorization = req.headers.authorization;

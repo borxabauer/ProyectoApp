@@ -10,6 +10,7 @@ const NavBar = () => {
   const { cart } = useCart();
   const cartCount = cart.reduce((count, item) => count + item.cantidad, 0);
 
+  // Carga los productos para generar los enlaces de navegación.
   async function fetchProductos() {
     const response = await fetch(backendURL + "productos/");
     const data = await response.json();

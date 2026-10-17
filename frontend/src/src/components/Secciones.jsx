@@ -8,6 +8,7 @@ const Secciones = () => {
 
   const [seccionList, setSeccionList] = useState([]);
 
+  // Obtiene las secciones del producto seleccionado y prepara sus enlaces.
   const fetchSeccion = useCallback(async () => {
     const response = await fetch(
       backendURL + "productos/" + params.id_producto + "/secciones",

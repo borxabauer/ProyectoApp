@@ -1,3 +1,4 @@
+// Consultas SQL utilizadas para crear, leer, actualizar y borrar pedidos.
 export const pedidos = [];
 
 export const getOnePedidosSQL = `SELECT id_item,cantidad FROM pedido WHERE id_pedido=?`;

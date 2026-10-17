@@ -10,6 +10,7 @@ const Items = () => {
   const [items, setItems] = useState([]);
   const [listItems, setListItems] = useState([]);
 
+  // Solicita al backend los artículos de la sección abierta.
   const fetchItems = useCallback(async () => {
     const response = await fetch(
       backendURL + "secciones/" + params.id_seccion + "/items",
@@ -18,6 +19,7 @@ const Items = () => {
     setItems(data);
   }, [params.id_seccion]);
 
+  // Convierte los datos recibidos en tarjetas de artículo.
   useEffect(() => {
     fetchItems();
   }, [fetchItems]);
@@ -40,4 +42,3 @@ const Items = () => {
 };
 
 export default Items;
-

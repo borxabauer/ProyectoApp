@@ -17,6 +17,7 @@ const directory = path.dirname(fileURLToPath(import.meta.url));
 const uploadsFolder = process.env.UPLOADS_PATH || path.join(directory, "uploads");
 const upload = multer({ dest: uploadsFolder });
 
+// Registra las rutas HTTP, conecta el middleware y expone la aplicación Express.
 const app = express();
 app.use("/", express.static(path.resolve(directory, "../../frontend/src/build"), { index: "index.html" }));
 
@@ -47,6 +48,7 @@ app.use(express.json());
 
 app.use("/api/v0.0/public/", express.static(uploadsFolder));
 
+// Valida las credenciales Basic y devuelve un JWT si pertenecen al administrador.
 app.get("/api/v0.0/login/", (req, res) => {
     try {
         const [username, password] = decodeBasicToken(req);
@@ -62,6 +64,7 @@ app.get("/api/v0.0/login/", (req, res) => {
     }
 });
 
+// Ruta protegida de ejemplo para comprobar que la autenticación funciona.
 app.get("/api/v0.0/secretos/", authMiddleware, (req, res) => {
     res.send("autorizado");
 });
@@ -109,6 +112,7 @@ if (users.length === 0) {
     throw new Error("APP_USERNAME y APP_PASSWORD deben definir un usuario administrador.");
 }
 
+// Solo abre el puerto al ejecutar este archivo, no al importarlo desde las pruebas.
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
     const port = Number(process.env.PORT || 3000);
     app.listen(port, () => {
@@ -120,7 +124,6 @@ export default app;
  
 
     
-
 
 
 
