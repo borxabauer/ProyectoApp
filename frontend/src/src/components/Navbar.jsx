@@ -23,15 +23,12 @@ const NavBar = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.navbar}>
-        <Link to="./">
+      <nav className={styles.navbar} aria-label="Navegación principal">
+        <Link className={styles.homeLink} to="/" aria-label="Inicio">
           <img src={logo} className={styles.logo} alt="Main Logo" />
         </Link>
 
-        <ul>
-          <li>
-            <Link to="/"></Link>
-          </li>
+        <ul className={styles.navLinks}>
           {productos.map((item) => (
             <li key={item.id_producto}>
               <Link to={"/productos/" + item.id_producto}>
@@ -40,8 +37,8 @@ const NavBar = () => {
             </li>
           ))}
           <li>
-            <Link to="/carrito" aria-label={`Carrito, ${cartCount} productos`}>
-              <span className={styles.cartLink}>
+            <Link className={styles.cartLink} to="/carrito" aria-label={`Carrito, ${cartCount} productos`}>
+              <span className={styles.cartVisual}>
                 <svg
                   className={styles.cartIcon}
                   viewBox="0 0 24 24"
@@ -65,7 +62,7 @@ const NavBar = () => {
             </Link>
           </li>
         </ul>
-      </div>
+      </nav>
     </div>
   );
 };

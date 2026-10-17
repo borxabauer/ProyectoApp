@@ -1,12 +1,47 @@
+/* Limita el ancho del carrusel, recorta bordes y añade separación visual. */
 .carouselslide {
   position: relative;
-  width: min(1400px, calc(100% - 2rem));
-  margin: 1rem auto;
+  width: min(1180px, calc(100% - 2rem));
+  margin: clamp(1rem, 4vw, 3rem) auto;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: #e8e8e8;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.18);
 }
 
+/* Mantiene redondeados los bordes del contenido interno del carrusel. */
+.carouselslide .carousel-inner {
+  border-radius: inherit;
+}
+
+/* Ajusta las fotos al carrusel manteniendo su proporción sin deformarlas. */
 .carouselslide .carousel-inner img {
   display: block;
   width: 100%;
-  height: min(65vh, 650px);
-  object-fit: contain;
+  height: clamp(270px, 50vw, 590px);
+  object-fit: cover;
+  object-position: center 48%;
+}
+
+/* Mantiene los indicadores por encima de la imagen. */
+.carouselslide .carousel-indicators {
+  z-index: 2;
+}
+
+/* Reserva un área cómoda para los controles anterior y siguiente. */
+.carouselslide .carousel-control-prev,
+.carouselslide .carousel-control-next {
+  width: 10%;
+}
+
+/* Reduce altura y márgenes del carrusel en pantallas estrechas. */
+@media (max-width: 600px) {
+  .carouselslide {
+    width: calc(100% - 1.25rem);
+    border-radius: 0.9rem;
+  }
+
+  .carouselslide .carousel-inner img {
+    height: 300px;
+  }
 }

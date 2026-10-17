@@ -1,37 +1,214 @@
-
+/* Organiza cada artículo en columna y le da altura uniforme dentro de la cuadrícula. */
 .card {
-    box-shadow: 0.4px 8px 8px 4.4px rgba(218, 13, 13, 0.644);
-    max-width: 300px;
-    max-height:300px;
-    margin:auto;
-    text-align: center;
-    font-family: arial;
-    margin:20px
-   
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(180, 0, 0, 0.12);
+  text-align: left;
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.nombreItem{
-    color:red;
-    font-size: 8px;
-}
-.precio{
-    color:black;
-    font-size: 16px;
+/* Eleva visualmente la tarjeta al pasar el cursor. */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(180, 0, 0, 0.22);
 }
 
+/* Mantiene la imagen en proporción 4:3 y recorta lo que exceda el marco. */
+.imageFrame {
+  position: relative;
+  display: grid;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  place-items: center;
+  background: #f1f1f1;
+}
+
+/* Hace que toda el área de imagen sea un botón accesible para abrir la ampliación. */
+.imageButton {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+/* Recorta la foto dentro del marco y aplica un zoom sutil al pasar el cursor. */
 .imagen {
-    height: 200px;
-    width: 200px;
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 220ms ease;
 }
 
-.card button {
-    border: none;
-    outline: 0;
-    padding: 12px;
-    color: white;
-    background-color: #000;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
-    font-size: 12px;
+/* Amplía ligeramente la imagen mientras se enfoca la tarjeta. */
+.card:hover .imagen {
+  transform: scale(1.035);
+}
+
+/* Alinea la información y reserva espacio para el precio y la acción. */
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1rem;
+}
+
+/* Resalta el nombre del artículo con el color rojo de la tienda. */
+.nombreItem {
+  margin: 0;
+  color: #c8102e;
+  font-size: 1.05rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+/* Limita la descripción a tres líneas para conservar tarjetas ordenadas. */
+.descripcion {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Mantiene precio y botón al final de la tarjeta. */
+.cardFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: auto;
+  padding-top: 0.4rem;
+}
+
+/* Da prioridad visual al precio del producto. */
+.precio {
+  color: #111;
+  font-size: 1.2rem;
+  font-weight: 750;
+}
+
+/* Botón de compra de ancho completo con área táctil cómoda. */
+.button {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 0.65rem;
+  background: #080808;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 650;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+/* Usa el rojo como respuesta visual al pasar sobre el botón. */
+.button:hover {
+  background: #c8102e;
+}
+
+/* Hace visible el foco del teclado en el botón de compra. */
+.button:focus-visible {
+  outline: 3px solid #c8102e;
+  outline-offset: 3px;
+}
+
+/* Delimita con claridad la imagen cuando se alcanza usando el teclado. */
+.imageButton:focus-visible {
+  outline: 3px solid #c8102e;
+  outline-offset: -4px;
+}
+
+/* Apariencia y límites del visor modal; cerrado, el diálogo no ocupa espacio. */
+.imageDialog {
+  position: relative;
+  width: min(92vw, 1100px);
+  max-width: none;
+  max-height: 92vh;
+  overflow: visible;
+  padding: 1rem;
+  border: 1px solid #c8102e;
+  border-radius: 0.75rem;
+  background: #080808;
+  color: #fff;
+}
+
+/* Distribuye imagen y título solo mientras el diálogo está abierto. */
+.imageDialog[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Oscurece el resto de la página detrás de la imagen ampliada. */
+.imageDialog::backdrop {
+  background: rgba(0, 0, 0, 0.86);
+}
+
+/* Ajusta la imagen al modal sin deformarla ni superar la pantalla. */
+.enlargedImage {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: calc(92vh - 5rem);
+  object-fit: contain;
+}
+
+/* Centra y separa el nombre del artículo bajo la imagen ampliada. */
+.dialogCaption {
+  margin: 0;
+  color: #fff;
+  font-weight: 650;
+  text-align: center;
+}
+
+/* Botón de cierre flotante, circular y visible sobre la fotografía. */
+.closeDialog {
+  position: absolute;
+  z-index: 1;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: #c8102e;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+/* Resalta el botón de cierre cuando se navega con teclado. */
+.closeDialog:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* Respeta la preferencia del usuario por reducir animaciones. */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .imagen,
+  .button {
+    transition: none;
   }
+}

@@ -1,3 +1,4 @@
+/* Coloca los datos de la tienda junto al mapa en pantallas amplias. */
 .location {
   display: grid;
   grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.8fr);
@@ -9,30 +10,35 @@
   text-align: left;
 }
 
+/* Alinea verticalmente el bloque de información del establecimiento. */
 .details {
   align-self: center;
   padding: 8px;
 }
 
+/* Etiqueta breve para identificar la sección de ubicación. */
 .eyebrow {
   margin-bottom: 8px;
-  color: #55751d;
+  color: #c8102e;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
+/* Separa el nombre del establecimiento de su dirección. */
 .details h1 {
   margin-bottom: 16px;
   padding: 10px;
   color: white;
 }
 
+/* Mejora la legibilidad de la dirección y sus saltos de línea. */
 .address {
   font-size: 1.1rem;
   line-height: 1.6;
 }
 
+/* Presenta el enlace a indicaciones como botón destacado. */
 .directions {
   display: inline-block;
   margin-top: 8px;
@@ -42,18 +48,21 @@
   text-decoration: none;
 }
 
+/* Cambia el botón al color de acento al interactuar con él. */
 .directions:hover,
 .directions:focus-visible {
-  background: #55751d;
+  background: #c8102e;
   color: white;
 }
 
+/* El mapa ocupa el ancho disponible y tiene una altura mínima útil. */
 .map {
   width: 100%;
   min-height: 380px;
   border: 0;
 }
 
+/* Apila información y mapa para facilitar la lectura en móviles. */
 @media (max-width: 700px) {
   .location {
     grid-template-columns: 1fr;

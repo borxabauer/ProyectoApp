@@ -1,38 +1,45 @@
-import { useState, useEffect, useCallback } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import styles from "./Secciones.module.css";
 import { backendURL } from "../config.js";
 
 const Secciones = () => {
-  const params = useParams();
+  const { id_producto: productId } = useParams();
+  const [sections, setSections] = useState([]);
 
-  const [seccionList, setSeccionList] = useState([]);
-
-  // Obtiene las secciones del producto seleccionado y prepara sus enlaces.
-  const fetchSeccion = useCallback(async () => {
-    const response = await fetch(
-      backendURL + "productos/" + params.id_producto + "/secciones",
-    );
+  // Carga las secciones vinculadas al producto seleccionado.
+  const fetchSections = useCallback(async () => {
+    const response = await fetch(`${backendURL}productos/${productId}/secciones`);
     const data = await response.json();
-    const seccionesHTML = data.map((sec) => (
-      <li key={sec.id_seccion ?? sec.nombre_seccion}>
-        <Link to={`/secciones/${sec.id_seccion}`}>{sec.nombre_seccion}</Link>
-      </li>
-    ));
-    setSeccionList(seccionesHTML);
-  }, [params.id_producto]);
+    setSections(data);
+  }, [productId]);
 
   useEffect(() => {
-    fetchSeccion();
-  }, [fetchSeccion]);
+    fetchSections();
+  }, [fetchSections]);
 
   return (
-    <>
-      <div className={styles.secciones}>
+    <section className={styles.page}>
+      <header className={styles.heading}>
+        <p className={styles.eyebrow}>Un espacio para cada idea</p>
         <h1>Secciones</h1>
-        {seccionList}
-      </div>
-    </>
+        <p>Elige una categoría para descubrir nuestros artículos.</p>
+      </header>
+      {sections.length > 0 ? (
+        <ul className={styles.list}>
+          {sections.map((section) => (
+            <li key={section.id_seccion}>
+              <Link to={`/secciones/${section.id_seccion}`}>
+                <span>{section.nombre_seccion}</span>
+                <span className={styles.arrow} aria-hidden="true">→</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className={styles.empty}>No hay secciones disponibles para este producto.</p>
+      )}
+    </section>
   );
 };
 

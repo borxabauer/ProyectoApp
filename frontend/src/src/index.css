@@ -1,8 +1,42 @@
-
-*{
-  margin:0;
-  padding:0;
+/* Hace que padding y bordes se incluyan en las dimensiones de los elementos. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-  
 
+/* Define el fondo general y el desplazamiento suave entre secciones. */
+html {
+  background: #f4f4f4;
+  scroll-behavior: smooth;
+}
 
+/* Establece tipografía, colores base y elimina el margen por defecto del navegador. */
+body {
+  margin: 0;
+  background: #f4f4f4;
+  color: #111;
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Conserva la misma tipografía en controles interactivos y campos de formulario. */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Impide que las imágenes excedan el ancho disponible de su contenedor. */
+img {
+  max-width: 100%;
+}
+
+/* Desactiva el desplazamiento animado para usuarios que reducen el movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

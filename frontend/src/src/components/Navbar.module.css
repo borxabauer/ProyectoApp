@@ -1,115 +1,161 @@
-
-.container{
-    width:100%;
-    height:15vh;
-    background-color:rgb(5, 5, 5);
-    display: flex;
-    
-    
-    
-    
-  }
-  
-  .navbar{
-    width:100%;
-    margin:auto;
-    padding:35px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-    
-    
-  }
-  
-  .logo{
-    width:100px;
-    cursor:pointer;
-    
+/* Fondo oscuro común a toda la cabecera y sombra para separarla del contenido. */
+.container {
+  width: 100%;
+  background: #080808;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.24);
 }
-  
-  .navbar ul{
-    text-align: center;
-    align-items: center;
 
-  }
-  
-  .navbar ul li{
-    list-style-type: none;
-    display:inline-block;
-    margin: 0 20px;
-   
-    
-  }
-  
-  .navbar ul li a{
-    text-decoration: none;
-    color: white;
-      font-family: Roboto, sans-serif;
-    font-size: 1.2rem;
-    display: inline-block;
+/* Alinea el logo y los enlaces; limita el ancho en pantallas grandes. */
+.navbar {
+  display: flex;
+  width: min(1280px, 100%);
+  min-height: 88px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin: 0 auto;
+  padding: 0.8rem clamp(1rem, 4vw, 3rem);
+}
+
+/* Mantiene el enlace del logo en su tamaño y recorta sus bordes. */
+.homeLink {
+  display: block;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  line-height: 0;
+}
+
+/* Controla el tamaño y el recorte del logotipo. */
+.logo {
+  display: block;
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+}
+
+/* Coloca los enlaces de categorías en filas que pueden ajustarse al espacio. */
+.navLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem clamp(0.65rem, 1.7vw, 1.35rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Quita el formato de lista predeterminado de cada elemento de navegación. */
+.navLinks li {
+  margin: 0;
+}
+
+/* Garantiza enlaces legibles y con altura cómoda para interacción. */
+.navLinks a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: #f3f5f1;
+  font-size: clamp(0.85rem, 1.4vw, 1rem);
+  font-weight: 550;
+  text-decoration: none;
+}
+
+/* Línea roja decorativa bajo cada enlace de navegación. */
+.navLinks a:not(.cartLink)::after {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  left: 0;
+  height: 2px;
+  background: #c8102e;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 160ms ease;
+}
+
+/* Proporciona el punto de referencia para ubicar la línea decorativa. */
+.navLinks a:not(.cartLink) {
+  position: relative;
+}
+
+/* Muestra la línea al pasar el cursor o enfocar un enlace con teclado. */
+.navLinks a:not(.cartLink):hover::after,
+.navLinks a:not(.cartLink):focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Indicador visible de foco para logo y enlaces accesibles por teclado. */
+.navLinks a:focus-visible,
+.homeLink:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid #f06a7d;
+  outline-offset: 4px;
+}
+
+/* Centra el icono del carrito en la lista de navegación. */
+.cartLink {
+  position: relative;
+  justify-content: center;
+}
+
+/* Permite superponer el contador sobre el icono del carrito. */
+.cartVisual {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+}
+
+/* Ajusta el tamaño del icono vectorial del carrito. */
+.cartIcon {
+  width: 25px;
+  height: 25px;
+}
+
+/* Muestra sobre el carrito la cantidad de artículos añadidos. */
+.cartCount {
+  position: absolute;
+  top: -5px;
+  right: -7px;
+  display: grid;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 4px;
+  place-items: center;
+  border-radius: 999px;
+  background: #c8102e;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 750;
+  line-height: 1;
+}
+
+/* Reorganiza la cabecera en columna para que el menú quepa en móvil. */
+@media (max-width: 760px) {
+  .navbar {
+    min-height: 0;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding-block: 0.75rem;
   }
 
-  .cartLink {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    padding: 4px;
+  .logo {
+    width: 54px;
+    height: 54px;
   }
 
-  .cartIcon {
-    width: 28px;
-    height: 28px;
+  .navLinks {
+    justify-content: center;
+    gap: 0 0.9rem;
   }
+}
 
-  .cartCount {
-    position: absolute;
-    top: -5px;
-    right: -7px;
-    display: grid;
-    min-width: 19px;
-    height: 19px;
-    padding: 0 4px;
-    place-items: center;
-    border-radius: 999px;
-    background-color: yellowgreen;
-    color: #111;
-    font-size: 0.75rem;
-    font-weight: 700;
-    line-height: 1;
+/* Evita animaciones decorativas si el usuario solicita menos movimiento. */
+@media (prefers-reduced-motion: reduce) {
+  .navLinks a::after {
+    transition: none;
   }
-
-  .navbar ul li a::after {
-    content: "";
-    display: block;
-    height: 3px;
-    background-color: yellowgreen;
-    transform: scale(0,1);
-    transform-origin: center;
-    transition: transform 0.4s;
-  }
-
-  .navbar ul li a:hover::after {
-    transform: scale(1,1);
-  }
-  
-  /* Efecto animado de la linea
-  
-  .navbar ul li::before{
-    content:"";
-    height:3px;
-    width:0%;
-    background: yellowgreen;
-    position:absolute;
-    left:0;
-    bottom:-12px;
-    transition: 0.4s ease-out;
-  
-  }
-  
-  .navbar ul li:hover::before{
-    width:100%;
-  
-  }
-
-  */
+}

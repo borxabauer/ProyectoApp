@@ -1,19 +1,56 @@
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 30px;
+/* Panel del catálogo centrado con ancho adaptable, fondo y sombra suaves. */
+.page {
+  width: min(1200px, calc(100% - 2rem));
+  margin: clamp(1rem, 4vw, 3rem) auto;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
 }
 
-.items {
-    display: center;
-    text-align:center;
-    margin-top: 20px;
-  }
-    
-  
-  
-  .items li a {
-    color:black;
-    
-  }
+/* Estilos compartidos del encabezado y el texto introductorio del catálogo. */
+.heading {
+  margin-bottom: 1.75rem;
+  color: #555;
+  text-align: left;
+}
+
+/* Título principal con tamaño fluido según el ancho de pantalla. */
+.heading h1 {
+  margin: 0.2rem 0 0.55rem;
+  color: #111;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.15;
+}
+
+/* Evita márgenes sobrantes en el texto descriptivo del encabezado. */
+.heading > p:last-child {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Texto breve que identifica visualmente la sección antes del título. */
+.eyebrow {
+  margin: 0;
+  color: #c8102e;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Distribuye las tarjetas en columnas adaptables y mantiene espacios regulares. */
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
+  align-items: stretch;
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Presenta un mensaje centrado cuando la sección no contiene artículos. */
+.empty {
+  margin: 2rem 0;
+  color: #555;
+  text-align: center;
+}

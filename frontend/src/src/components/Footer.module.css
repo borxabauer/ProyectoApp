@@ -1,43 +1,42 @@
-.footer{
-    background:black;
-    width: 100%;
-    height:14vh;
-    flex-shrink: 0;
-  }
-  
-  .footer li{
-    
-  text-align: center;
-    
-  } 
-  .footer li a {
-    color:white;
-    list-style-type: none;
-      display: block;
-    text-decoration: none;
-      font-family: Roboto, sans-serif;
-    font-size:1.2rem;
-    margin-bottom: auto;
-    
-    
-  }
-  
-  
-   /*Efecto Animado linea */
-  
-  .footer li a::after {
-    content: "";
-    display:block;
-    height: 3px;
-    background-color:yellowgreen;
-    transform: scale(0,1);
-    transform-origin: center;
-    transition: transform 0.4s;
-    
-  }
-  
-  .footer li a:hover::after {
-    transform: scale(1,1);
-    
-  }
-   
+/* Centra enlaces e información legal sobre una franja oscura. */
+.footer {
+  display: flex;
+  min-height: 112px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  padding: 1.5rem 1rem;
+  background: #080808;
+  color: #f3f3f3;
+}
+
+/* Distribuye los enlaces y permite que pasen a otra fila en móvil. */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem 1.5rem;
+}
+
+/* Estilo de los enlaces informativos del pie de página. */
+.links a {
+  color: #f3f3f3;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+/* Destaca el enlace activo al pasar el cursor o navegar con teclado. */
+.links a:hover,
+.links a:focus-visible {
+  color: #f06a7d;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Texto secundario de marca en el pie de página. */
+.copyright {
+  margin: 0;
+  color: #c8c8c8;
+  font-size: 0.78rem;
+}

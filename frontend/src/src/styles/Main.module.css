@@ -1,26 +1,28 @@
+/* Reserva el área del fondo y establece una altura mínima para la página. */
 .backgroundwrapper {
   position: relative;
-  top: 0px;
-  left: 0px;
   min-height: 70vh;
   width: 100%;
 }
 
+/* Coloca el contenido por encima del fondo y deja espacio bajo la página. */
 .contentwrapper {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  position: relative;
   z-index: 1;
   width: 100%;
+  min-height: 70vh;
+  padding: 1px 0 2rem;
 }
 
+/* El fondo cubre el contenedor sin capturar clics ni distraer el contenido. */
 .background {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.9;
+  opacity: 0.12;
+  pointer-events: none;
 }
 
 
