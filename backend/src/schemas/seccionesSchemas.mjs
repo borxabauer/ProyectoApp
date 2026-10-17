@@ -4,7 +4,7 @@
 // Schema Añadir Seccion
 
 export const newSeccionSchema = {
-    $id_seccion: "/secciones",
+    $id: "/secciones/new",
     type: "object",
     properties: {
         id_seccion: {
@@ -25,6 +25,7 @@ export const newSeccionSchema = {
             minimum: 0
         }
     },
+    required: ["id_seccion", "nombre_seccion", "id_producto"],
     additionalProperties: false
 }
 
@@ -33,7 +34,7 @@ export const newSeccionSchema = {
 // Schema Modificar Seccion
 
 export const seccionSchema = {
-    $id_seccion: "/secciones",
+    $id: "/secciones",
     type: "object",
     properties: {
         id_seccion: {
@@ -52,6 +53,7 @@ export const seccionSchema = {
         }
         
     },
+    required: ["id_seccion", "nombre_seccion"],
     additionalProperties: false
 }
 
@@ -59,7 +61,7 @@ export const seccionSchema = {
 // Schema Eliminar Seccion
 
 export const deleteSeccionSchema = {
-    $id_seccion: "/secciones",
+    $id: "/secciones/delete",
     type: "object",
     properties: {
         id_seccion: {
@@ -68,6 +70,6 @@ export const deleteSeccionSchema = {
             minimum: 0
         }
     },
+    required: ["id_seccion"],
     additionalProperties: false
 }
-

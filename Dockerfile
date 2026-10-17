@@ -8,9 +8,8 @@ COPY . .
 WORKDIR /usr/src/app/frontend/src
 RUN npm install
 RUN npm run build
-RUN rm .gitignore package.json package-lock.json public README.md src node_modules -rf
 
-WORKDIR /usr/src/app/backend
+WORKDIR /usr/src/app/backend/src
 RUN npm install --omit=dev
 
 ENTRYPOINT [ "npm", "start" ]

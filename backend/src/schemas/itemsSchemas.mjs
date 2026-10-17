@@ -1,7 +1,7 @@
 // Schema Añadir Items
 
 export const newItemsSchema = {
-    $id_item: "/items",
+    $id: "/items/new",
     type: "object",
     properties: {
         id_item: {
@@ -14,10 +14,10 @@ export const newItemsSchema = {
           id_seccion:{
               description: "Seccion unique identificator",
               type:"integer",
-              minimun:0
+              minimum: 0
     },
 
-           description:{
+           descripcion:{
               description: "item description",
               type: "string"
     },
@@ -33,18 +33,18 @@ export const newItemsSchema = {
                type: "string"
      },  
             imagen:{
-               description: " imagen identificator",
+               description: "image identifier",
                type: "string"
-            
-        },
+            },
     },
+    required: ["id_item", "id_seccion", "descripcion", "precio", "nombre_item", "imagen"],
     additionalProperties: false
 }
 
 // Schema Modificar Items
 
 export const itemsSchema = {
-    $id_item: "/items",
+    $id: "/items",
     type: "object",
     properties: {
         id_item: {
@@ -57,10 +57,10 @@ export const itemsSchema = {
           id_seccion:{
               description: "Seccion unique identificator",
               type:"integer",
-              minimun:0
+              minimum: 0
     },
 
-           description:{
+           descripcion:{
               description: "item description",
               type: "string"
     },
@@ -81,13 +81,14 @@ export const itemsSchema = {
             
         },
     },
+    required: ["id_item", "id_seccion", "descripcion", "precio", "nombre_item", "imagen"],
     additionalProperties: false
 }
 
 // Schema Eliminar Item
 
 export const deleteItemSchema = {
-    $id_item: "/items",
+    $id: "/items/delete",
     type: "object",
     properties: {
         id_item: {
@@ -96,5 +97,6 @@ export const deleteItemSchema = {
             minimum: 0
         }
     },
+    required: ["id_item"],
     additionalProperties: false
 }

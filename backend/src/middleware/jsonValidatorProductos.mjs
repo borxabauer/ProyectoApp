@@ -10,12 +10,10 @@ export function validateNewProductoJSON ( request, response, next) {
         if (validation.valid) {
             next();
         } else {
-            response.status(400);
-            response.send("Invalid task data provided");
-            console.error("Invalid task data provided");
+            response.status(400).send("Datos de producto no válidos.");
         }
     } catch (err) {
-        throw "Error validating data"
+        next(err);
     }
 }
 
@@ -27,12 +25,10 @@ export function validateProductoJSON ( request, response, next) {
         if (validation.valid) {
             next();
         } else {
-            response.status(400);
-            response.send("Invalid task data provided");
-            console.error("Invalid task data provided");
+            response.status(400).send("Datos de producto no válidos.");
         }
     } catch (err) {
-        throw "Error validating data"
+        next(err);
     }
 }
 
@@ -44,12 +40,9 @@ export function validateDeleteProductoJSON ( request, response, next) {
         if (validation.valid) {
             next();
         } else {
-            response.status(400);
-            response.send("Invalid task data provided");
-            console.error("Invalid task data provided");
+            response.status(400).send("Datos de producto no válidos.");
         }
     } catch (err) {
-        throw "Error validating data"
+        next(err);
     }
 }
-

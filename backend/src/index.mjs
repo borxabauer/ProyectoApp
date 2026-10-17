@@ -1,5 +1,4 @@
 import express from "express";
-import { requestLog } from "./middleware/requestLog.mjs";
 import { getUserController,postUserController,putUserController,deleteUserController } from "./controllers/usersControllers.mjs";
 import { getAllProductosControllers,postProductosControllers,putProductosControllers,deleteProductosControllers,getOneProductosControllers } from "./controllers/productosControllers.mjs";
 import { getAllItemsControllers,postItemsControllers,putItemsControllers,deleteItemsControllers,getOneItemsControllers,getItemForASeccionIdControllers } from "./controllers/itemsControllers.mjs";
@@ -8,22 +7,18 @@ import { deletePedidosControllers, getAllPedidosControllers, getOnePedidosContro
 import { validateDeleteProductoJSON, validateNewProductoJSON, validateProductoJSON } from "./middleware/jsonValidatorProductos.mjs";
 import { validateDeleteSeccionJSON, validateNewSeccionJSON, validateSeccionJSON } from "./middleware/jsonValidatorSecciones.mjs";
 import { validateDeleteItemJSON, validateItemsJSON, validateNewItemsJSON } from "./middleware/jsonValidatorItems.mjs";
-import { decodeBasicToken,authMiddleware } from "./middleware/authorization.mjs";
+import { createAccessToken, decodeBasicToken, authMiddleware } from "./middleware/authorization.mjs";
 import multer from "multer";
-import jwt from "jsonwebtoken"
 import { users } from "./sqlModels/usersModels.mjs";
-import {config} from "dotenv"
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
+const directory = path.dirname(fileURLToPath(import.meta.url));
+const uploadsFolder = process.env.UPLOADS_PATH || path.join(directory, "uploads");
+const upload = multer({ dest: uploadsFolder });
 
 const app = express();
-//const PORT = 3000;
-
-//DESPLIEGUE
-
-if ( process.env.NODE_ENV != "production" ) {
-    config()
-}
-app.use("/",express.static("../frontend/src/build/", {index: "index.html"}))
+app.use("/", express.static(path.resolve(directory, "../../frontend/src/build"), { index: "index.html" }));
 
 const developmentOrigins = new Set([
     "http://localhost:3001",
@@ -48,117 +43,83 @@ app.use((req, res, next) => {
 })
 
 
-//Multer Subir Archivos Carpeta
-
-const UPLOADS_FOLDER= "./uploads/"
-
-const upload=multer({dest: UPLOADS_FOLDER})
-
 app.use(express.json());
 
-try {
-    const jsonParser = express.json();
-  
-  
-    //app.use(requestLog);
- 
-     // Imagenes Multer
- 
+app.use("/api/v0.0/public/", express.static(uploadsFolder));
 
- app.use("/api/v0.0/public/",express.static(UPLOADS_FOLDER))
-
- 
-    
-     // Autentificacion
-        
-     const secret = "abc123.secreto.serio" // Esto debería de estar en un .env
-
-     
-
-     app.get("/api/v0.0/login/", (req, res)=>{
-        const [ username, password ] = decodeBasicToken(req)
-        if ( 
-            username === users.username && password === users.password
-        ) {
-            const token = jwt.sign(
-                {
-                    level: users.accessLevel
-                },
-                secret,
-                {
-                    expiresIn: "1h",
-                }
-            )
-            res.send(token)
-        } else {
-            res.sendStatus(401)
+app.get("/api/v0.0/login/", (req, res) => {
+    try {
+        const [username, password] = decodeBasicToken(req);
+        const user = users.find((candidate) =>
+            candidate.username === username && candidate.password === password
+        );
+        if (!user) {
+            return res.sendStatus(401);
         }
-    })
+        return res.send(createAccessToken(user.accessLevel));
+    } catch {
+        return res.sendStatus(401);
+    }
+});
 
-    app.get("/api/v0.0/secretos/", authMiddleware, (req, res)=>{
-        res.send(`autorizado`)
-    })
+app.get("/api/v0.0/secretos/", authMiddleware, (req, res) => {
+    res.send("autorizado");
+});
 
+app.get("/api/v0.0/users/", authMiddleware, getUserController);
+app.post("/api/v0.0/users/", authMiddleware, postUserController);
+app.put("/api/v0.0/users/", authMiddleware, putUserController);
+app.delete("/api/v0.0/users/", authMiddleware, deleteUserController);
 
- app.get("/api/v0.0/users/",jsonParser,getUserController);
- app.post("/api/v0.0/users/",jsonParser,postUserController);
- app.put("/api/v0.0/users/",jsonParser,putUserController);
- app.delete("/api/v0.0/users/",jsonParser, deleteUserController);
+app.get("/api/v0.0/productos/:id_producto", getOneProductosControllers);
+app.get("/api/v0.0/productos/", getAllProductosControllers);
+app.post("/api/v0.0/productos/", authMiddleware, validateNewProductoJSON, postProductosControllers);
+app.put("/api/v0.0/productos/", authMiddleware, validateProductoJSON, putProductosControllers);
+app.delete("/api/v0.0/productos/", authMiddleware, validateDeleteProductoJSON, deleteProductosControllers);
 
+app.get("/api/v0.0/items/:id_item", getOneItemsControllers);
+app.get("/api/v0.0/secciones/:id_seccion/items", getItemForASeccionIdControllers);
+app.get("/api/v0.0/items/", getAllItemsControllers);
+app.post("/api/v0.0/items/", authMiddleware, upload.single("photo"), validateNewItemsJSON, postItemsControllers);
+app.put("/api/v0.0/items/", authMiddleware, validateItemsJSON, putItemsControllers);
+app.delete("/api/v0.0/items/", authMiddleware, validateDeleteItemJSON, deleteItemsControllers);
 
- // Productos
+app.get("/api/v0.0/secciones/:id_seccion", getOneSeccionesControllers);
+app.get("/api/v0.0/productos/:id_producto/secciones", getSeccionForAProductoIdControllers);
+app.get("/api/v0.0/secciones/", getAllSeccionesControllers);
+app.post("/api/v0.0/secciones/", authMiddleware, validateNewSeccionJSON, postSeccionesControllers);
+app.put("/api/v0.0/secciones/", authMiddleware, validateSeccionJSON, putSeccionesControllers);
+app.delete("/api/v0.0/secciones/", authMiddleware, validateDeleteSeccionJSON, deleteSeccionesControllers);
 
- app.get("/api/v0.0/productos/:id_producto",jsonParser,getOneProductosControllers);
- app.get("/api/v0.0/productos/",jsonParser,getAllProductosControllers);
- app.post("/api/v0.0/productos/",jsonParser,validateNewProductoJSON,postProductosControllers);
- app.put("/api/v0.0/productos/",jsonParser,validateProductoJSON,putProductosControllers);
- app.delete("/api/v0.0/productos/",jsonParser,validateDeleteProductoJSON,deleteProductosControllers);
+app.get("/api/v0.0/pedidos/:id_pedido", getOnePedidosControllers);
+app.get("/api/v0.0/pedidos/", getAllPedidosControllers);
+app.post("/api/v0.0/pedidos/", authMiddleware, postPedidosControllers);
+app.put("/api/v0.0/pedidos/", authMiddleware, putPedidosControllers);
+app.delete("/api/v0.0/pedidos/", authMiddleware, deletePedidosControllers);
 
-  
- // Items
-
- app.get("/api/v0.0/items/:id_item",jsonParser,getOneItemsControllers);
- app.get("/api/v0.0/secciones/:id_seccion/items",jsonParser,getItemForASeccionIdControllers)
- app.get("/api/v0.0/items/",jsonParser,getAllItemsControllers);
- app.post("/api/v0.0/items/",upload.single('photo'),postItemsControllers);
- app.put("/api/v0.0/items/",jsonParser,validateItemsJSON,putItemsControllers);
- app.delete("/api/v0.0/items/",jsonParser,validateDeleteItemJSON,deleteItemsControllers);
-
- 
- // Secciones
-
- app.get("/api/v0.0/secciones/:id_seccion",jsonParser,getOneSeccionesControllers);
- app.get("/api/v0.0/productos/:id_producto/secciones",jsonParser,getSeccionForAProductoIdControllers);
- app.get("/api/v0.0/secciones/",jsonParser,getAllSeccionesControllers);
- app.post("/api/v0.0/secciones/",jsonParser,validateNewSeccionJSON,postSeccionesControllers);
- app.put("/api/v0.0/secciones/",jsonParser,validateSeccionJSON,putSeccionesControllers);
- app.delete("/api/v0.0/secciones/",jsonParser,validateDeleteSeccionJSON,deleteSeccionesControllers);
-
- 
- // Pedidos
-
- app.get("/api/v0.0/pedidos/:id_pedido",jsonParser,getOnePedidosControllers);
- app.get("/api/v0.0/pedidos/",jsonParser,getAllPedidosControllers);
- app.post("/api/v0.0/pedidos/",jsonParser,postPedidosControllers);
- app.put("/api/v0.0/pedidos/",jsonParser,putPedidosControllers);
- app.delete("/api/v0.0/pedidos/",jsonParser,deletePedidosControllers);
-
-
- 
- 
-
- app.listen(process.env.PORT,()=>{
-    console.log("Express running...");
-})
-
-} catch (err) {
-    console.error(err);
+const requiredEnvironment = ["APP_USERNAME", "APP_PASSWORD", "JWT_SECRET"];
+const missingEnvironment = requiredEnvironment.filter((name) => !process.env[name]);
+if (missingEnvironment.length > 0) {
+    throw new Error(`Faltan variables de entorno obligatorias: ${missingEnvironment.join(", ")}`);
 }
+if (process.env.JWT_SECRET.length < 32) {
+    throw new Error("JWT_SECRET debe tener al menos 32 caracteres.");
+}
+if (users.length === 0) {
+    throw new Error("APP_USERNAME y APP_PASSWORD deben definir un usuario administrador.");
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+    const port = Number(process.env.PORT || 3000);
+    app.listen(port, () => {
+        console.log(`Express running on port ${port}...`);
+    });
+}
+
+export default app;
  
 
     
-
-
 
 
 

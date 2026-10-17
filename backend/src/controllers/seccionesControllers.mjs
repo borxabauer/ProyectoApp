@@ -3,39 +3,25 @@ import { deleteSeccionesSQL, getAllSeccionesSQL,postSeccionesSQL,putSeccionesSQL
 
 
 export function getOneSeccionesControllers (request, response) {
-    try {
-        db.get(
-            getOneSeccionesIdSQL,
-            request.params.id_seccion,
-            (err, data) => {
-                if ( err ) throw err
-                else if ( data ) response.json(data)
-                else response.sendStatus(404)
-            }
-        )
-    } catch (err) {
-        requestError(err, response)
-    }
+    db.get(getOneSeccionesIdSQL, request.params.id_seccion, (err, data) => {
+        if (err) {
+            console.error(err);
+            return response.sendStatus(500);
+        }
+        return data ? response.json(data) : response.sendStatus(404);
+    });
 }
 
 // Controlador conseguir la seccion con el id del  producto
 
 export function getSeccionForAProductoIdControllers (request,response){
-    try{
-        console.log('request.params',request.params)
-        db.all(
-            getSeccionForAProductoIdSQL,
-            request.params.id_producto,
-            (err,data)=>{
-                if (err) throw err
-                else if (data) response.json(data)
-                else response.sendStatus(404)
-
-                 }
-              )
-    }  catch (err) {
-        requestError(err, response)
-    }
+    db.all(getSeccionForAProductoIdSQL, request.params.id_producto, (err, data) => {
+        if (err) {
+            console.error(err);
+            return response.sendStatus(500);
+        }
+        return response.json(data);
+    });
 }
 
 

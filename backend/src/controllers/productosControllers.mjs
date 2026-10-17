@@ -4,19 +4,13 @@ import { deleteProductosSQL, getAllProductosSQL,postProductosSQL, putProductosSQ
   
 
 export function getOneProductosControllers (request, response) {
-    try {
-        db.get(
-            getOneProductosIdSQL,
-            request.params.id_producto,
-            (err, data) => {
-                if ( err ) throw err
-                else if ( data ) response.json(data)
-                else response.sendStatus(404)
-            }
-        )
-    } catch (err) {
-        requestError(err, response)
-    }
+    db.get(getOneProductosIdSQL, request.params.id_producto, (err, data) => {
+        if (err) {
+            console.error(err);
+            return response.sendStatus(500);
+        }
+        return data ? response.json(data) : response.sendStatus(404);
+    });
 }
 
 

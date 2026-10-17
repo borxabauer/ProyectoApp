@@ -2,7 +2,7 @@
 // Schema Añadir Producto
 
 export const newProductoSchema = {
-    $id_producto: "/productos",
+    $id: "/productos/new",
     type: "object",
     properties: {
         id_producto: {
@@ -16,13 +16,14 @@ export const newProductoSchema = {
             type: "string"
         }
     },
+    required: ["id_producto", "nombre_producto"],
     additionalProperties: false
 }
 
 // Schema Modificar Producto
 
 export const productoSchema = {
-    $id_producto: "/productos",
+    $id: "/productos",
     type: "object",
     properties: {
         id_producto: {
@@ -36,13 +37,14 @@ export const productoSchema = {
         }
         
     },
+    required: ["id_producto", "nombre_producto"],
     additionalProperties: false
 }
 
 // Schema Eliminar Producto
 
 export const deleteProductoSchema = {
-    $id_producto: "/productos",
+    $id: "/productos/delete",
     type: "object",
     properties: {
         id_producto: {
@@ -51,5 +53,6 @@ export const deleteProductoSchema = {
             minimum: 0
         }
     },
+    required: ["id_producto"],
     additionalProperties: false
 }

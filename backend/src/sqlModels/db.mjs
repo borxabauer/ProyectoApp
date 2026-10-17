@@ -1,6 +1,11 @@
 import sqlite3 from 'sqlite3';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-export const db = new sqlite3.Database('./Muebles.db', (err) => {
+const directory = path.dirname(fileURLToPath(import.meta.url));
+const databasePath = process.env.DATABASE_PATH || path.join(directory, '..', 'Muebles.db');
+
+export const db = new sqlite3.Database(databasePath, (err) => {
     if (err) {
         throw err.message;
     }

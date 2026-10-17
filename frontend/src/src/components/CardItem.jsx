@@ -1,5 +1,6 @@
 import styles from './Card.module.css'
 import { useCart } from "../context/CartContext";
+import { backendURL } from "../config.js";
 
 function CardItem (props) {
 
@@ -11,7 +12,7 @@ const { addToCart } = useCart();
     //<Link to= {`/items/${item.id_item}`}> {item.nombre_item} {item.image} {item.precio} {item.descripcion}>
        <div className= {styles.card} >
 
-            <img src= {"http://localhost:3000/api/v0.0/public/"+item.imagen} className={styles.imagen}  alt="photos"   />
+            <img src={`${backendURL}public/${item.imagen}`} className={styles.imagen} alt={item.nombre_item} />
 
             <div className= {styles.nombreItem}>
                 <h2 > {item.nombre_item} </h2>

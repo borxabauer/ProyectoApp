@@ -1,15 +1,6 @@
-export let backendURL
+const apiPath = "/api/v0.0/";
+const isDevelopmentHost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
 
-switch (window.location.hostname) {
-    case "localhost":
-     backendURL="http://localhost:3000/api/v0.0/"
-     break;
-     
-     case "127.0.0.1":
-      backendURL="http://127.0.0.1:3000/"
-      break;
-
-      default:
-      backendURL="/"
-      break;
-}
+export const backendURL = isDevelopmentHost
+  ? `${window.location.protocol}//${window.location.hostname}:3000${apiPath}`
+  : apiPath;

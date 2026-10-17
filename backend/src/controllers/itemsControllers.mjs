@@ -7,44 +7,23 @@ import { getAllItemsSQL,postItemsSQL,putItemsSQL,deleteItemsSQL,getOneItemsByIdS
 // Mostra un item por id
 
 export function getOneItemsControllers (request, response) {
-    try {
-        db.get(
-            getOneItemsByIdSQL,
-            request.params.id_item,
-            (err, data) => {
-                if ( err ) throw err
-                else if ( data ) response.json(data)
-                else response.sendStatus(404)
-            }
-        )
-    } catch (err) {
-        requestError(err, response)
-    }
+    db.get(getOneItemsByIdSQL, request.params.id_item, (err, data) => {
+        if (err) {
+            console.error(err);
+            return response.sendStatus(500);
+        }
+        return data ? response.json(data) : response.sendStatus(404);
+    });
 }
 
-// Mostrar un item por el id de la seccion
-// data.imagen= la direccion del use expres. static en index mjs
-
 export function getItemForASeccionIdControllers (request,response){
-    try{
-        console.log('request.params',request.params)
-        db.all(
-            getItemForASeccionIdSQL,
-            request.params.id_seccion,
-            (err,data)=>{
-                if (err) throw err
-                else if (data) {
-                    data.imagen = "http://localhost:3000/api/v0.0/public/"+data.imagen
-                    response.json(data)
-                }
-                else response.sendStatus(404)
-
-                 }
-              )
-    }  catch (err) {
-        requestError(err, response)
-    }
-
+    db.all(getItemForASeccionIdSQL, request.params.id_seccion, (err, data) => {
+        if (err) {
+            console.error(err);
+            return response.sendStatus(500);
+        }
+        return response.json(data);
+    });
     }
 
 
@@ -68,10 +47,9 @@ export function getAllItemsControllers(request, response){
   
   //Añadir items
     export function postItemsControllers (request, response){
-      
-      db.run(postItemsSQL,
+        db.run(postItemsSQL,
          
-          [request.body.id_item,request.body.id_seccion,request.body.descripcion,request.body.precio,request.body.nombre_item,request.file.filename],
+            [request.body.id_item,request.body.id_seccion,request.body.descripcion,request.body.precio,request.body.nombre_item,request.file.filename],
           (err) => {
               if (err) {
                   console.error(err);
