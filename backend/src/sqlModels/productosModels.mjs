@@ -1,6 +1,4 @@
-// Consultas SQL y datos auxiliares relacionados con productos.
-export const productos = [];
-
+// Consultas SQL parametrizadas utilizadas para gestionar productos.
 export const getOneProductosIdSQL = `SELECT nombre_producto FROM productos WHERE id_producto=?`;
 
 export const getAllProductosSQL = `SELECT id_producto, nombre_producto FROM productos`;

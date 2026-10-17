@@ -7,9 +7,11 @@ import { deletePedidosControllers, getAllPedidosControllers, getOnePedidosContro
 import { validateDeleteProductoJSON, validateNewProductoJSON, validateProductoJSON } from "./middleware/jsonValidatorProductos.mjs";
 import { validateDeleteSeccionJSON, validateNewSeccionJSON, validateSeccionJSON } from "./middleware/jsonValidatorSecciones.mjs";
 import { validateDeleteItemJSON, validateItemsJSON, validateNewItemsJSON } from "./middleware/jsonValidatorItems.mjs";
+import { validateDeleteUserJSON, validateNewUserJSON, validateUserJSON } from "./middleware/jsonValidatorUsers.mjs";
 import { createAccessToken, decodeBasicToken, authMiddleware } from "./middleware/authorization.mjs";
 import multer from "multer";
-import { users } from "./sqlModels/usersModels.mjs";
+import { authenticateUser, initializeUsers } from "./services/usersService.mjs";
+import { databaseReady } from "./sqlModels/db.mjs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -49,18 +51,24 @@ app.use(express.json());
 app.use("/api/v0.0/public/", express.static(uploadsFolder));
 
 // Valida las credenciales Basic y devuelve un JWT si pertenecen al administrador.
-app.get("/api/v0.0/login/", (req, res) => {
+app.get("/api/v0.0/login/", async (req, res) => {
+    let credentials;
     try {
-        const [username, password] = decodeBasicToken(req);
-        const user = users.find((candidate) =>
-            candidate.username === username && candidate.password === password
-        );
+        credentials = decodeBasicToken(req);
+    } catch {
+        return res.sendStatus(401);
+    }
+
+    try {
+        const [username, password] = credentials;
+        const user = await authenticateUser(username, password);
         if (!user) {
             return res.sendStatus(401);
         }
         return res.send(createAccessToken(user.accessLevel));
-    } catch {
-        return res.sendStatus(401);
+    } catch (err) {
+        console.error("No se pudo autenticar la cuenta.", err);
+        return res.sendStatus(500);
     }
 });
 
@@ -70,9 +78,9 @@ app.get("/api/v0.0/secretos/", authMiddleware, (req, res) => {
 });
 
 app.get("/api/v0.0/users/", authMiddleware, getUserController);
-app.post("/api/v0.0/users/", authMiddleware, postUserController);
-app.put("/api/v0.0/users/", authMiddleware, putUserController);
-app.delete("/api/v0.0/users/", authMiddleware, deleteUserController);
+app.post("/api/v0.0/users/", authMiddleware, validateNewUserJSON, postUserController);
+app.put("/api/v0.0/users/", authMiddleware, validateUserJSON, putUserController);
+app.delete("/api/v0.0/users/", authMiddleware, validateDeleteUserJSON, deleteUserController);
 
 app.get("/api/v0.0/productos/:id_producto", getOneProductosControllers);
 app.get("/api/v0.0/productos/", getAllProductosControllers);
@@ -100,7 +108,7 @@ app.post("/api/v0.0/pedidos/", authMiddleware, postPedidosControllers);
 app.put("/api/v0.0/pedidos/", authMiddleware, putPedidosControllers);
 app.delete("/api/v0.0/pedidos/", authMiddleware, deletePedidosControllers);
 
-const requiredEnvironment = ["APP_USERNAME", "APP_PASSWORD", "JWT_SECRET"];
+const requiredEnvironment = ["JWT_SECRET"];
 const missingEnvironment = requiredEnvironment.filter((name) => !process.env[name]);
 if (missingEnvironment.length > 0) {
     throw new Error(`Faltan variables de entorno obligatorias: ${missingEnvironment.join(", ")}`);
@@ -108,9 +116,8 @@ if (missingEnvironment.length > 0) {
 if (process.env.JWT_SECRET.length < 32) {
     throw new Error("JWT_SECRET debe tener al menos 32 caracteres.");
 }
-if (users.length === 0) {
-    throw new Error("APP_USERNAME y APP_PASSWORD deben definir un usuario administrador.");
-}
+await databaseReady;
+await initializeUsers();
 
 // Solo abre el puerto al ejecutar este archivo, no al importarlo desde las pruebas.
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -124,9 +131,6 @@ export default app;
  
 
     
-
-
-
 
 
 

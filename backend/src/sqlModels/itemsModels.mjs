@@ -1,6 +1,4 @@
 // Consultas SQL y datos auxiliares relacionados con artículos.
-export const items = [];
-
 export const getOneItemsByIdSQL = `SELECT id_seccion,descripcion,precio,nombre_item,imagen FROM items WHERE id_item = ?`;
 
 export const getItemForASeccionIdSQL= `SELECT id_item,id_seccion,descripcion,precio,nombre_item,imagen FROM items WHERE id_seccion= ?`;
